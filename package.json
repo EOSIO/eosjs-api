@@ -1,0 +1,36 @@
+{
+  "name": "eosapi",
+  "version": "1.0.0",
+  "description": "Application programming interface to EOS blockchain nodes.",
+  "scripts": {
+    "test": "mocha src/**/*.test.js",
+    "coverage": "istanbul cover _mocha -- -R spec src/**/*.test.js",
+    "coveralls": "npm run coverage && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eosjs/api.git"
+  },
+  "keywords": [
+    "EOS",
+    "Blockchain",
+    "API"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eosjs/api/issues"
+  },
+  "homepage": "https://github.com/eosjs/api#readme",
+  "devDependencies": {
+    "bluebird": "^3.5.0",
+    "coveralls": "^2.13.1",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.4.2"
+  },
+  "dependencies": {
+    "camel-case": "^3.0.0",
+    "eosjson": "eosjs/json",
+    "isomorphic-fetch": "^2.2.1"
+  }
+}
