@@ -4,8 +4,6 @@
 
 Application programming interface to EOS blockchain nodes.  This is mostly for read-only API calls.  If you decide you need to sign transactions, your better off using this API in the [eosjs](https://github.com/eosjs/eosjs) package.
 
-Warning: I'm still force pushing (without versioning).  Make an issue if this could cause a problem.
-
 ## Usage
 
 ```javascript

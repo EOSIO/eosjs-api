@@ -205,7 +205,7 @@ encoding@^0.1.11:
 
 eosjson@eosjs/json:
   version "1.0.0"
-  resolved "https://codeload.github.com/eosjs/json/tar.gz/e122fa29da5e1d87c034f37472ac011ca1a88844"
+  resolved "https://codeload.github.com/eosjs/json/tar.gz/41b32dbe50a006b15a7229c146b4d41b29104da4"
 
 escape-string-regexp@1.0.5, escape-string-regexp@^1.0.2:
   version "1.0.5"
