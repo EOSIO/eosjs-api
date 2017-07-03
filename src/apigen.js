@@ -1,5 +1,6 @@
 require('isomorphic-fetch')
 const camelCase = require('camel-case')
+const helpers = require('./exported-helpers')
 
 module.exports = apiGen
 
@@ -19,7 +20,11 @@ function apiGen (version, definitions, config) {
       api[methodName] = fetchMethod(methodName, url, definitions[apiGroup][apiMethod], config.debug)
     }
   }
-  return api
+  for(const helper in helpers.api) {
+    // Insert `api` as the first parameter to all API helpers
+    api[helper] = (...args) => helpers.api[helper](api, ...args)
+  }
+  return Object.assign(api, helpers)
 }
 
 function fetchMethod (methodName, url, definition, debug) {

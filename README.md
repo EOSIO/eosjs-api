@@ -1,16 +1,19 @@
 [![Build Status](https://travis-ci.org/eosjs/api.svg?branch=master)](https://travis-ci.org/eosjs/api)
+[![NPM](https://img.shields.io/npm/v/eosjs-api.svg)](https://www.npmjs.org/package/eosjs-api)
 
-# eosapi
+# Eos API
 
 Application programming interface to EOS blockchain nodes.  This is mostly for read-only API calls.  If you decide you need to sign transactions, your better off using this API in the [eosjs](https://github.com/eosjs/eosjs) package.
+
+Status: Beta
 
 ## Usage
 
 ```javascript
-const assert = require('assert')
-const Testnet = require('./testnet')//from npm => require('eosapi/testnet')
+Testnet = require('eosapi/testnet') // Or Testnet = require('./testnet')
+assert = require('assert')
 
-let testnet = Testnet() // See ./testnet.js for configuration
+testnet = Testnet() // See ./testnet.js for configuration
 
 // Any API call without a callback parameter will print documentation: description,
 // parameters, return value, and possible errors.  All methods and documentation
@@ -18,21 +21,21 @@ let testnet = Testnet() // See ./testnet.js for configuration
 testnet.getInfo()
 
 // General callback for these examples
-const callback = (err, res) => {err ? console.error(err) : console.log(res)}
+callback = (err, res) => {err ? console.error(err) : console.log(res)}
 
 // The server does not expect any parameters only the callback is needed
 testnet.getInfo(callback)
 
-// Parameters can be an array
+// Parameters are added before the callback
 testnet.getBlock(1, callback)
 
 // Parameters can be an object
-testnet.getBlock({"block_num_or_id": 1}, callback)
+testnet.getBlock({block_num_or_id: 1}, callback)
 
-// All methods work under Promise.promisifyAll
-Promise = require('bluebird')
-testnet = Promise.promisifyAll(testnet)
-testnet.getInfoAsync()
+// All methods work under promisifyAll
+let {promisifyAll} = require('sb-promisify')
+testnet = promisifyAll(testnet)
+testnet.getInfoAsync().catch(error => { console.error(error) })
 // returns: Promise
 ```
 
