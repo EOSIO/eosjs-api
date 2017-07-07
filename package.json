@@ -1,6 +1,6 @@
 {
   "name": "eosjs-api",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Application programming interface to EOS blockchain nodes.",
   "scripts": {
     "test": "mocha src/**/*.test.js",

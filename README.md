@@ -10,7 +10,7 @@ Status: Beta
 ## Usage
 
 ```javascript
-Testnet = require('eosapi/testnet') // Or Testnet = require('./testnet')
+Testnet = require('eosjs-api/testnet') // Or Testnet = require('./testnet')
 assert = require('assert')
 
 testnet = Testnet() // See ./testnet.js for configuration
@@ -20,7 +20,7 @@ testnet = Testnet() // See ./testnet.js for configuration
 // are created from JSON files in eosjs/json/api/v1..
 testnet.getInfo()
 
-// General callback for these examples
+// For promises instead of callbacks, use something like npmjs 'sb-promisify'
 callback = (err, res) => {err ? console.error(err) : console.log(res)}
 
 // The server does not expect any parameters only the callback is needed
@@ -31,12 +31,6 @@ testnet.getBlock(1, callback)
 
 // Parameters can be an object
 testnet.getBlock({block_num_or_id: 1}, callback)
-
-// All methods work under promisifyAll
-let {promisifyAll} = require('sb-promisify')
-testnet = promisifyAll(testnet)
-testnet.getInfoAsync().catch(error => { console.error(error) })
-// returns: Promise
 ```
 
 ## API Documentation

@@ -1,5 +1,5 @@
-const testnet = require('./testnet')
+const Testnet = require('./testnet')
 
 module.exports = {
-  testnet
+  Testnet
 }
