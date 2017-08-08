@@ -7,6 +7,10 @@ Application programming interface to EOS blockchain nodes.  This is mostly for r
 
 Status: Beta
 
+# Requirement
+
+Build and run [eosd](https://github.com/eosio/eos) or direct requests to a public testnet or production node.
+
 ## Usage
 
 ```javascript
