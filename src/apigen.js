@@ -124,11 +124,11 @@ function processArgs(args) {
 
 function genParams (callParams, defParams, methodName) {
   let apiParams
-  // Parameteters can be: object by name or a positional array
+  // Parameteters can be ordered or an object
   if (callParams.length === 1 && typeof callParams[0] === 'object') {
     apiParams = callParams[0]
   } else {
-    // positional array
+    // ordered params
     const defLen = defParams ? Object.keys(defParams).length : 0
     if (callParams.length > defLen) {
       throw new TypeError(`${methodName} is expecting ${defLen === 0 ? 'no' : defLen} parameters but ${callParams.length} where provided`)

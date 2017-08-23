@@ -3,7 +3,7 @@
 
 # Eos API
 
-Application programming interface to EOS blockchain nodes.  This is mostly for read-only API calls.  If you decide you need to sign transactions, your better off using this API in the [eosjs](https://github.com/eosjs/eosjs) package.
+Application programming interface to EOS blockchain nodes.  This is mostly for read-only API calls.  If you decide you need to sign transactions, your better off using this API in the [eosjs](https://github.com/eosio/eosjs) package.
 
 Status: Beta
 
@@ -43,7 +43,7 @@ testnet.getBlock({block_num_or_id: 1}).then(result => console.log(result))
 
 ## API Documentation
 
-The API methods and documentation are stored in JSON files in this [folder](https://github.com/eosjs/json/tree/master/api).
+The API methods and documentation are stored in JSON files in this [folder](https://github.com/eosio/eosjs-json/tree/master/api).
 
 ## Environment
 
