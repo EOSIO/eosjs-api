@@ -15,7 +15,6 @@ Build and run [eosd](https://github.com/eosio/eos) or direct requests to a publi
 
 ```javascript
 Testnet = require('eosjs-api/testnet') // Or Testnet = require('./testnet')
-assert = require('assert')
 
 testnet = Testnet() // See ./testnet.js for configuration
 
@@ -24,7 +23,11 @@ testnet = Testnet() // See ./testnet.js for configuration
 // are created from JSON files in eosjs/json/api/v1..
 testnet.getInfo()
 
-// For promises instead of callbacks, use something like npmjs 'sb-promisify'
+// A Promise is returned if a callback is not provided.
+testnet.getInfo({}).then(result => console.log(result))
+testnet.getBlock(1).then(result => console.log(result))
+
+// For callbacks instead of Promises provide a callback
 callback = (err, res) => {err ? console.error(err) : console.log(res)}
 
 // The server does not expect any parameters only the callback is needed
@@ -35,6 +38,7 @@ testnet.getBlock(1, callback)
 
 // Parameters can be an object
 testnet.getBlock({block_num_or_id: 1}, callback)
+testnet.getBlock({block_num_or_id: 1}).then(result => console.log(result))
 ```
 
 ## API Documentation

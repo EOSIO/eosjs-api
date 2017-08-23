@@ -33,11 +33,8 @@ function fetchMethod (methodName, url, definition, debug) {
       console.error(usage(methodName, definition))
       return
     }
-    const callParams = args.slice(0, args.length - 1)
-    const callback = args[args.length - 1]
-    if (typeof callback !== 'function') {
-      throw new TypeError(`${methodName}: Callback function is required as the last argument`)
-    }
+
+    const {returnPromise, callParams, callback} = processArgs(args)
     const apiParams = genParams(callParams, definition.params, methodName)
     const body = JSON.stringify(apiParams)
     fetch(url, {body, method: 'POST'}).then(response => {
@@ -63,6 +60,8 @@ function fetchMethod (methodName, url, definition, debug) {
       }
       callback(error)
     })
+
+    return returnPromise
   }
 }
 
@@ -100,6 +99,27 @@ function usage (methodName, definition) {
   }
 
   return usage
+}
+
+function processArgs(args) {
+  let returnPromise
+  let callParams = args.slice(0, args.length - 1)
+  let callback = args[args.length - 1]
+  if (typeof callback !== 'function') {
+    returnPromise = new Promise((resolve, reject) => {
+      callback = function(err, result) {
+        if(err) {
+          reject(err)
+        } else {
+          resolve(result)
+        }
+      }
+    })
+    callParams = args
+  } else {
+    callParams = args.slice(0, args.length - 1)
+  }
+  return {returnPromise, callParams, callback}
 }
 
 function genParams (callParams, defParams, methodName) {

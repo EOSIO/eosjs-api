@@ -1,13 +1,14 @@
 module.exports = {
+
+  // Under "api:" all functions must take api as their 1st parameter
   api: {
-    // All functions must take api as their 1st parameter
     createTransaction
   }
 }
 
 /**
-  Consult the blockchain and gather information for use in a new signed transaction headers.
-  Per Transaction as Proof of Stake (TaPOS) 32 bits of a recent block Id is included.
+  Consult the blockchain and gather information for use in a new signed transaction.
+  For Transaction as Proof of Stake (TaPOS), 32 bits of a recent block Id is included.
 
   @arg {number} expireInSeconds - How many seconds until expiration
   @arg {function} callback - (error, headers)
@@ -32,8 +33,8 @@ function createTransaction(api, expireInSeconds = 60, callback) {
         expiration: expiration.toISOString().split('.')[0],
         scope: [],
         messages: [],
+        authorization: [],
         signatures: [],
-        authorizations: [],
       })
       callback(null, headers)
     }))
