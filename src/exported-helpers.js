@@ -20,16 +20,16 @@ function createTransaction(api, expireInSeconds = 60, callback) {
   }
   api.getInfo(checkError(callback, info => {
     const chainDate = new Date(info.head_block_time + 'Z')
+
+    // Back-up 3 blocks to help avoid mini-forks.
     const refBlockNum = (info.head_block_num - 3) & 0xFFFF
 
-    // Back-up 3 blocks to help avoid mini-forks.  The getBlock call does not return
-    // its own block id but the next block has 'previous'.
-    api.getBlock(info.head_block_num - 2, checkError(callback, block => {
+    api.getBlock(info.head_block_num - 3, checkError(callback, block => {
       const headBlockId = block.previous
       const expiration = new Date(chainDate.getTime() + expireInSeconds * 1000)
       const headers = Object.assign({
         refBlockNum,
-        refBlockPrefix: new Buffer(headBlockId, 'hex').readUInt32LE(4),
+        refBlockPrefix: block.refBlockPrefix,
         expiration: expiration.toISOString().split('.')[0],
         scope: [],
         messages: [],
