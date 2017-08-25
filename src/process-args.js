@@ -26,7 +26,7 @@ module.exports = processArgs
 
   @throws TypeError - when parameter count is not exact (considers options and callback)
 */
-function processArgs (args, defParams, methodName, optionsFormatter = null) {
+function processArgs (args, defParams, methodName = 'method', optionsFormatter = null) {
   let params = {}
   let options = {}
 
@@ -68,9 +68,8 @@ function processArgs (args, defParams, methodName, optionsFormatter = null) {
   })
 
   // Look for the options parameter (after potential callback was removed)
-  if(
-    typeof optionsFormatter === 'function' &&
-    args.length === expectedArgCount + 1
+  if(typeof optionsFormatter === 'function' && args.length > 0 &&
+    (typeof args[0] === 'object' || args.length === expectedArgCount + 1)
   ) {
     //An extra options argument
     options = optionsFormatter(args[args.length - 1])
@@ -89,16 +88,13 @@ function processArgs (args, defParams, methodName, optionsFormatter = null) {
     if (args.length > expectedArgCount) {
       // console.log('typeof defParams[expectedArgCount]', args)
       throw new TypeError(`${methodName} is expecting ${
-        expectedArgCount === 0 ? 'no' : expectedArgCount} parameters but ${
+        expectedArgCount} parameters but ${
         args.length} where provided`)
     }
 
     // convert ordered parameters into a value object by parameter name
     let pos = 0
     for (const defParam of defParams) {
-      if (args.length === pos) {
-        break
-      }
       params[defParam] = args[pos]
       pos++
     }
