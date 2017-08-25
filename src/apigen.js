@@ -1,6 +1,7 @@
 require('isomorphic-fetch')
 const camelCase = require('camel-case')
 const helpers = require('./exported-helpers')
+const processArgs = require('./process-args')
 
 module.exports = apiGen
 
@@ -34,9 +35,16 @@ function fetchMethod (methodName, url, definition, debug) {
       return
     }
 
-    const {returnPromise, callParams, callback} = processArgs(args)
-    const apiParams = genParams(callParams, definition.params, methodName)
-    const body = JSON.stringify(apiParams)
+    const optionsFormatter = option => {
+      if(typeof option === 'boolean') {
+        return {broadcast: option}
+      }
+    }
+
+    const {params, options, returnPromise, callback} =
+      processArgs(args, Object.keys(definition.params || []), methodName, optionsFormatter)
+
+    const body = JSON.stringify(params)
     fetch(url, {body, method: 'POST'}).then(response => {
       if (response.status >= 200 && response.status < 300) {
         return response.json()
@@ -99,51 +107,4 @@ function usage (methodName, definition) {
   }
 
   return usage
-}
-
-function processArgs(args) {
-  let returnPromise
-  let callParams = args.slice(0, args.length - 1)
-  let callback = args[args.length - 1]
-  if (typeof callback !== 'function') {
-    returnPromise = new Promise((resolve, reject) => {
-      callback = function(err, result) {
-        if(err) {
-          reject(err)
-        } else {
-          resolve(result)
-        }
-      }
-    })
-    callParams = args
-  } else {
-    callParams = args.slice(0, args.length - 1)
-  }
-  return {returnPromise, callParams, callback}
-}
-
-function genParams (callParams, defParams, methodName) {
-  let apiParams
-  // Parameteters can be ordered or an object
-  if (callParams.length === 1 && typeof callParams[0] === 'object') {
-    apiParams = callParams[0]
-  } else {
-    // ordered params
-    const defLen = defParams ? Object.keys(defParams).length : 0
-    if (callParams.length > defLen) {
-      throw new TypeError(`${methodName} is expecting ${defLen === 0 ? 'no' : defLen} parameters but ${callParams.length} where provided`)
-    }
-    apiParams = {}
-    if (defParams) {
-      let pos = 0
-      for (const defParam in defParams) {
-        if (callParams.length === pos) {
-          break
-        }
-        apiParams[defParam] = callParams[pos]
-        pos++
-      }
-    }
-  }
-  return apiParams
 }
