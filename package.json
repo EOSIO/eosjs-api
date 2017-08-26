@@ -1,6 +1,6 @@
 {
   "name": "eosjs-api",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "Application programming interface to EOS blockchain nodes.",
   "scripts": {
     "test": "mocha src/**/*.test.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eosjs/api.git"
+    "url": "git+https://github.com/EOSIO/eosjs-api.git"
   },
   "keywords": [
     "EOS",
@@ -19,9 +19,9 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/eosjs/api/issues"
+    "url": "https://github.com/EOSIO/eosjs-api/issues"
   },
-  "homepage": "https://github.com/eosjs/api#readme",
+  "homepage": "https://github.com/EOSIO/eosjs-api#readme",
   "devDependencies": {
     "bluebird": "^3.5.0",
     "coveralls": "^2.13.1",
