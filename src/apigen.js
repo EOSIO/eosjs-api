@@ -11,7 +11,7 @@ const configDefaults = {
 }
 
 function apiGen (version, definitions, config) {
-  config = Object.assign(configDefaults, config)
+  config = Object.assign({}, configDefaults, config)
   const api = {}
   const {httpEndpoint} = config
   for (const apiGroup in definitions) {
