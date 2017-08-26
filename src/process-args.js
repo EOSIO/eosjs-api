@@ -69,7 +69,7 @@ function processArgs (args, defParams, methodName = 'method', optionsFormatter =
 
   // Look for the options parameter (after potential callback was removed)
   if(typeof optionsFormatter === 'function' && args.length > 0 &&
-    (typeof args[0] === 'object' || args.length === expectedArgCount + 1)
+    ((typeof args[0] === 'object' && args.length === 2) || args.length === expectedArgCount + 1)
   ) {
     //An extra options argument
     options = optionsFormatter(args[args.length - 1])

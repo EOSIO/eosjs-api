@@ -35,9 +35,8 @@ describe('Process Args', function () {
     const optionsFormatter = option => option
 
     const r = processArgs(argsOption, argNames, 'method', optionsFormatter)
-    assert.equal(r.params.arg1, 1)
-    assert.equal(r.params.arg2, 2)
-    assert.equal(r.options.options, true)
+    assert.deepEqual(r.params, {arg1: 1, arg2: 2})
+    assert.deepEqual(r.options, {options: true})
   })
 
   it('callback', done => {
@@ -45,8 +44,7 @@ describe('Process Args', function () {
     const argsCallback = [1, 2, callback]
 
     const r = processArgs(argsCallback, argNames)
-    assert.equal(r.params.arg1, 1)
-    assert.equal(r.params.arg2, 2)
+    assert.deepEqual(r.params, {arg1: 1, arg2: 2})
     r.callback()
   })
 
@@ -55,8 +53,7 @@ describe('Process Args', function () {
     const argsCallback = [1, 2, callback]
 
     const r = processArgs(argsCallback, argNames)
-    assert.equal(r.params.arg1, 1)
-    assert.equal(r.params.arg2, 2)
+    assert.deepEqual(r.params, {arg1: 1, arg2: 2})
     r.callback('error')
     r.returnPromise.catch(error => {done()})
   })
@@ -67,8 +64,7 @@ describe('Process Args', function () {
     const optionsFormatter = option => option
 
     const r = processArgs(argsOptionCallback, argNames, 'method', optionsFormatter)
-    assert.equal(r.params.arg1, 1)
-    assert.equal(r.params.arg2, 2)
+    assert.deepEqual(r.params, {arg1: 1, arg2: 2})
     assert.equal(r.options.options, true)
     r.callback()
   })
@@ -79,10 +75,19 @@ describe('Process Args', function () {
     const optionsFormatter = option => option
 
     const r = processArgs(argsOptionCallback, argNames, 'method', optionsFormatter)
-    assert.equal(r.params.arg1, 1)
-    assert.equal(r.params.arg2, 2)
+    assert.deepEqual(r.params, {arg1: 1, arg2: 2})
     assert.equal(r.options.options, true)
     r.callback()
+  })
+
+  it('object with missing options', () => {
+    const argsOptionCallback = [{arg1: 1, arg2: 2}]
+    const optionsFormatter = option => option
+
+    const r = processArgs(argsOptionCallback, argNames, 'method', optionsFormatter)
+    assert.deepEqual(r.params, {arg1: 1, arg2: 2})
+    r.callback()
+    return r.returnPromise
   })
 
 })

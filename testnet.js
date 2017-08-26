@@ -14,6 +14,6 @@ const configDefaults = {httpEndpoint: 'http://127.0.0.1:8888'}
   @arg {object} config
 */
 function Testnet (config) {
-  config = Object.assign(configDefaults, config)
+  config = Object.assign({}, configDefaults, config)
   return apiGen(API_VERSION, Testnet.api, config)
 }
