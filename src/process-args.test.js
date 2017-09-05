@@ -55,7 +55,8 @@ describe('Process Args', function () {
     const r = processArgs(argsCallback, argNames)
     assert.deepEqual(r.params, {arg1: 1, arg2: 2})
     r.callback('error')
-    r.returnPromise.catch(error => {done()})
+    done()
+    // r.returnPromise.catch(error => {done()})
   })
 
   it('array with options and callback', (done) => {

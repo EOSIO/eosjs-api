@@ -5,7 +5,7 @@ module.exports = processArgs
   options and(or) callback parameters.
 
   Per the Promise API feature promisifyAll (see also sb-promisify), the callback
-  if provided must always be last.
+  (if provided) must always be last.
 
   @arg {Array|object} args - User-provided parameter object or array of parameters
   @arg {Array} defParams - Names for the parameters.
@@ -21,7 +21,9 @@ module.exports = processArgs
     callback: {function} - chained to optional callback provided in args.  Resolves
       or rejects returnPromise.
 
-    returnPromise: {Promise} resolves or rejects based on callback
+    returnPromise: {Promise} promise is returned when no callback is provided in
+      args[args.length - 1].  Undefined when a callback is provided.
+    
   }
 
   @throws TypeError - when parameter count is not exact (considers options and callback)
@@ -40,32 +42,34 @@ function processArgs (args, defParams, methodName = 'method', optionsFormatter =
     typeof args[args.length - 1] === 'function'
     // && optionsFormatter(args[args.length - 1]) == null // <- non-option arg (likely always true)
   ) {
-    // Create a new callback that will resolve both returnPromise
-    // and the original callback
+    // Create a new callback that will resolve the original callback or
+    // the returnPromise (promise is used when no original callback is provided)
 
     callbackArg = args[args.length - 1]
     args = args.slice(0, args.length - 1)
   }
 
   let callback
-  const returnPromise = new Promise((resolve, reject) => {
+  let returnPromise
+  if(callbackArg) {
     callback = function(err, result) {
       if(err) {
-        reject(err)
+        callbackArg(err)
       } else {
-        resolve(result)
-      }
-
-      if(callbackArg) {
-        // callbackArg(...) is last becaues it could throw an error
-        if(err) {
-          callbackArg(err)
-        } else {
-          callbackArg(null, result)
-        }
+        callbackArg(null, result)
       }
     }
-  })
+  } else {
+    returnPromise = new Promise((resolve, reject) => {
+      callback = function(err, result) {
+        if(err) {
+          reject(err)
+        } else {
+          resolve(result)
+        }
+      }
+    })
+  }
 
   // Look for the options parameter (after potential callback was removed)
   if(typeof optionsFormatter === 'function' && args.length > 0 &&
