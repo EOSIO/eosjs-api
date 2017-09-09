@@ -32,8 +32,8 @@ function createTransaction(api, expireInSeconds = 60, callback) {
         refBlockPrefix: block.refBlockPrefix,
         expiration: expiration.toISOString().split('.')[0],
         scope: [],
+        readscope: [],
         messages: [],
-        authorization: [],
         signatures: [],
       })
       callback(null, headers)

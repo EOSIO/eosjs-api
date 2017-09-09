@@ -45,6 +45,9 @@ function fetchMethod (methodName, url, definition, debug) {
       processArgs(args, Object.keys(definition.params || []), methodName, optionsFormatter)
 
     const body = JSON.stringify(params)
+    if (debug) {
+      console.error('api >', url, body)
+    }
     fetch(url, {body, method: 'POST'}).then(response => {
       if (response.status >= 200 && response.status < 300) {
         return response.json()
@@ -58,7 +61,7 @@ function fetchMethod (methodName, url, definition, debug) {
       }
     }).then(objectResp => {
       if (debug) {
-        console.error('api response =>', url, body, objectResp)
+        console.error('api <', objectResp)
       }
       callback(null, objectResp)
     })
