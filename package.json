@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "camel-case": "^3.0.0",
-    "eosjs-json": "^1.1.0",
+    "eosjs-json": "^1.2.0",
     "isomorphic-fetch": "^2.2.1"
   }
 }
