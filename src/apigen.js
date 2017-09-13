@@ -63,13 +63,21 @@ function fetchMethod (methodName, url, definition, debug) {
       if (debug) {
         console.error('api <', objectResp)
       }
-      callback(null, objectResp)
+      try {
+        callback(null, objectResp)
+      } catch(callbackError) {
+        console.error(callbackError)
+      }
     })
     .catch(error => {
       if (debug) {
         console.error('api error =>', url, body, error)
       }
-      callback(error)
+      try {
+        callback(error)
+      } catch(callbackError) {
+        console.error(callbackError)
+      }
     })
 
     return returnPromise
