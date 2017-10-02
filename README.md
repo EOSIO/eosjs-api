@@ -14,9 +14,9 @@ Build and run [eosd](https://github.com/eosio/eos) or direct requests to a publi
 ## Usage
 
 ```javascript
-Testnet = require('eosjs-api/testnet') // Or Testnet = require('./testnet')
+api = require('eosjs-api') // Or api = require('./src')
 
-testnet = Testnet() // See ./testnet.js for configuration
+testnet = api.Testnet() // See ./src/testnet.js for configuration
 
 // Any API call without a callback parameter will print documentation: description,
 // parameters, return value, and possible errors.  All methods and documentation

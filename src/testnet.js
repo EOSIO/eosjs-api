@@ -1,4 +1,4 @@
-const apiGen = require('./src/apigen')
+const apiGen = require('./apigen')
 
 module.exports = Testnet
 

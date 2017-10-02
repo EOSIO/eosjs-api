@@ -1,5 +1,5 @@
 const Testnet = require('./testnet')
-const processArgs = require('./src/process-args')
+const processArgs = require('./process-args')
 
 module.exports = {
   Testnet,
