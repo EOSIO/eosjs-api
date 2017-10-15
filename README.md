@@ -43,7 +43,9 @@ testnet.getBlock({block_num_or_id: 1}).then(result => console.log(result))
 
 ## API Documentation
 
-API methods and documentation are generated from  [chain.json](https://github.com/EOSIO/eosjs-json/blob/master/api/v1/chain.json).
+API methods and documentation are generated from:
+* [chain.json](https://github.com/EOSIO/eosjs-json/blob/master/api/v1/chain.json)
+* [account_history.json](https://github.com/EOSIO/eosjs-json/blob/master/api/v1/account_history.json)
 
 ## Environment
 
