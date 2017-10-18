@@ -51,9 +51,9 @@ function fetchMethod (methodName, url, definition, {debug, apiLog}) {
       const superCallback = callback
       callback = (error, tr) => {
         if(error) {
-          apiLog(error)
+          apiLog(error, methodName)
         } else {
-          apiLog(null, tr)
+          apiLog(null, tr, methodName)
         }
         superCallback(error, tr)
       }
