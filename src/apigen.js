@@ -18,7 +18,7 @@ function apiGen (version, definitions, config) {
     for (const apiMethod in definitions[apiGroup]) {
       const methodName = camelCase(apiMethod)
       const url = `${httpEndpoint}/${version}/${apiGroup}/${apiMethod}`
-      api[methodName] = fetchMethod(methodName, url, definitions[apiGroup][apiMethod], config.debug)
+      api[methodName] = fetchMethod(methodName, url, definitions[apiGroup][apiMethod], config)
     }
   }
   for(const helper in helpers.api) {
@@ -28,7 +28,7 @@ function apiGen (version, definitions, config) {
   return Object.assign(api, helpers)
 }
 
-function fetchMethod (methodName, url, definition, debug) {
+function fetchMethod (methodName, url, definition, {debug, apiLog}) {
   return function (...args) {
     if (args.length === 0) {
       console.error(usage(methodName, definition))
@@ -41,8 +41,23 @@ function fetchMethod (methodName, url, definition, debug) {
       }
     }
 
-    const {params, options, returnPromise, callback} =
-      processArgs(args, Object.keys(definition.params || []), methodName, optionsFormatter)
+    const processedArgs = processArgs(args, Object.keys(definition.params || []), methodName, optionsFormatter)
+
+    const {params, options, returnPromise} = processedArgs
+    let {callback} = processedArgs
+
+    if(apiLog) {
+      // wrap the callback with the logger
+      const superCallback = callback
+      callback = (error, tr) => {
+        if(error) {
+          apiLog(error)
+        } else {
+          apiLog(null, tr)
+        }
+        superCallback(error, tr)
+      }
+    }
 
     const body = JSON.stringify(params)
     if (debug) {
