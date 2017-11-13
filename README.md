@@ -41,6 +41,17 @@ testnet.getBlock({block_num_or_id: 1}, callback)
 testnet.getBlock({block_num_or_id: 1}).then(result => console.log(result))
 ```
 
+## Configuration
+
+```js
+api = require('eosjs-api') // Or api = require('./src')
+options = {
+  httpEndpoint: 'http://127.0.0.1:8888', // default
+  debug: false
+}
+testnet = api.Testnet(options)
+```
+
 ## API Documentation
 
 API methods and documentation are generated from:
