@@ -22,20 +22,19 @@ function createTransaction(api, expireInSeconds = 60, callback) {
     const chainDate = new Date(info.head_block_time + 'Z')
 
     // Back-up 3 blocks to help avoid mini-forks.
-    const refBlockNum = (info.head_block_num - 3) & 0xFFFF
+    const ref_block_num = (info.head_block_num - 3) & 0xFFFF
 
     api.getBlock(info.head_block_num - 3, checkError(callback, block => {
-      const headBlockId = block.previous
       const expiration = new Date(chainDate.getTime() + expireInSeconds * 1000)
-      const headers = Object.assign({
-        refBlockNum,
-        refBlockPrefix: block.refBlockPrefix,
+      const headers = {
+        ref_block_num,
+        ref_block_prefix: block.refBlockPrefix || block.ref_block_prefix,
         expiration: expiration.toISOString().split('.')[0],
         scope: [],
-        readscope: [],
+        read_scope: [],
         messages: [],
         signatures: [],
-      })
+      }
       callback(null, headers)
     }))
   }))
