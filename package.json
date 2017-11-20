@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "camel-case": "^3.0.0",
-    "eosjs-json": "^2.0.1",
+    "eosjs-json": "^2.0.2",
     "isomorphic-fetch": "^2.2.1"
   },
   "babel": {
