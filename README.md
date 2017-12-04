@@ -5,7 +5,13 @@
 
 Application programming interface to EOS blockchain nodes.  This is mostly for read-only API calls.  If you decide you need to sign transactions, your better off using this API in the [eosjs](https://github.com/eosio/eosjs) package.
 
-# Requirement
+# Requirements
+
+## api.Testnet()
+
+Internet access
+
+## api.Localnet()
 
 Build and run [eosd](https://github.com/eosio/eos) or direct requests to a public testnet or production node.
 
@@ -49,7 +55,7 @@ options = {
   debug: false
 }
 
-testnet = api.Testnet(options)
+testnet = api.Localnet(options)
 ```
 
 ## API Documentation
