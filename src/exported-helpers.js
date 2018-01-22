@@ -7,12 +7,35 @@ module.exports = {
 }
 
 /**
+  @typedef {object} headers
+  @property {number} ref_block_num - Recent head block number (ideally last
+  irreversible block).  The bit-wise AND operation is used to keep this value
+  with the size of a Uint16 size.
+  Example:`(get_info.head_block_num - 3) & 0xFFFF`
+
+  @property {string} ref_block_prefix - get_block.ref_block_prefix .. This is
+  the same block referenced in `ref_block_num`.
+
+  @property {string} expiration - This is based on the head block time from the
+  blockchain.  Be careful to suffix a Z if required (as with Firefox and JavaScript)
+  to ensure this date string is interpreted as Zulu time.
+
+  Example: `new Date(info.head_block_time + 'Z').getTime() + expireInSeconds * 1000`
+*/
+
+/**
   Consult the blockchain and gather information for use in a new signed transaction.
   For Transaction as Proof of Stake (TaPOS), 32 bits of a recent block Id is included.
+  Because all transactions use TaPOS, this solves the nothing at stake attack.
+
+  This is usually called for every transaction or maybe cached per block.  Although
+  longer caching may be possible, a longer cache time increases the risk of a
+  transaction replay attack.
 
   @arg {number} expireInSeconds - How many seconds until expiration
-  @arg {function} callback - (error, headers)
-  @typedef {object} headers - {ref_block_num, ref_block_prefix, expiration}
+  @arg {function(error, headers)} callback {@link headers}
+  @see {headers}
+  @example testnet.createTransaction(60, (error, headers) => {})
 */
 function createTransaction(api, expireInSeconds = 60, callback) {
   if(!callback) {

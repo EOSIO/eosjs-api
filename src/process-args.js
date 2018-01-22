@@ -1,6 +1,21 @@
 module.exports = processArgs
 
 /**
+  @typedef {object} processedArgs - Normalized object containing arguments, and
+  a chained promise and a callback.
+
+  @property {object} params - normalized args only, parameters by name, no extra options or callback.
+
+  @property {object} options - non-null or non-undefined return value from invocation of
+  optionsFormatter(optionsParam).
+
+  @property {function} callback -chained to optional callback provided in args.  Resolves
+  or rejects returnPromise.
+
+  @property {Promise} returnPromise - promise is returned when no callback is provided in
+  args[args.length - 1].  Undefined when a callback is provided.
+*/
+/**
   Convert args array or object into a normalized value object.  Suppoorts extra
   options and(or) callback parameters.
 
@@ -13,20 +28,12 @@ module.exports = processArgs
   @arg {function} [optionsFormatter(extraParam) = null] - optional callback used if an
     extra optional (non-callback) parameter is provided.
 
-  @return {object} {
-    params: normalized args only, parameters by name, no extra options or callback.
-    options: non-null or non-undefined return value from invocation of
-      optionsFormatter(optionsParam).
 
-    callback: {function} - chained to optional callback provided in args.  Resolves
-      or rejects returnPromise.
+  @return {processedArgs} processedArgs
+  @throws TypeError - when parameter count is not exact (after adjusting for
+  options and callback)
 
-    returnPromise: {Promise} promise is returned when no callback is provided in
-      args[args.length - 1].  Undefined when a callback is provided.
-    
-  }
-
-  @throws TypeError - when parameter count is not exact (considers options and callback)
+  @example api.processArgs(args, ['code'], 'contract', optionsFormatter)
 */
 function processArgs (args, defParams, methodName = 'method', optionsFormatter = null) {
   let params = {}

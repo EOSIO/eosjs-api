@@ -8,7 +8,8 @@
     "coverage": "istanbul cover _mocha -- -R spec src/**/*.test.js",
     "coveralls": "npm run coverage && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
     "build": "node_modules/babel-cli/bin/babel.js src --out-dir lib",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build && npm run docs",
+    "docs": "jsdoc2md src/exported-helpers.js src/process-args.js > docs/index.md"
   },
   "repository": {
     "type": "git",

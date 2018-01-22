@@ -64,6 +64,9 @@ API methods and documentation are generated from:
 * [chain.json](https://github.com/EOSIO/eosjs-json/blob/master/api/v1/chain.json)
 * [account_history.json](https://github.com/EOSIO/eosjs-json/blob/master/api/v1/account_history.json)
 
+Helper functions:
+* [./docs/index.md](./docs/index.md)
+
 ## Environment
 
 Node 6+ and browser (browserify, webpack, etc)
