@@ -13,14 +13,14 @@ module.exports = {
   with the size of a Uint16 size.
   Example:`(get_info.head_block_num - 3) & 0xFFFF`
 
-  @property {string} ref_block_prefix - get_block.ref_block_prefix .. This is
-  the same block referenced in `ref_block_num`.
+  @property {number} ref_block_prefix - get_block.ref_block_prefix .. This is
+  a 32 bit number identifier (identify the same block referenced in `ref_block_num`).
 
   @property {string} expiration - This is based on the head block time from the
   blockchain.  Be careful to suffix a Z if required (as with Firefox and JavaScript)
   to ensure this date string is interpreted as Zulu time.
 
-  Example: `new Date(info.head_block_time + 'Z').getTime() + expireInSeconds * 1000`
+  Example: `new Date(new Date(info.head_block_time + 'Z').getTime() + expireInSeconds * 1000).toISOString().split('.')[0]`
 */
 
 /**
