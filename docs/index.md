@@ -77,7 +77,7 @@ Convert args array or object into a normalized value object.  Suppoorts extra
 
 **Example**  
 ```js
-api.processArgs(args, ['code'], 'contract', optionsFormatter)
+api.processArgs(args, ['account'], 'contract', optionsFormatter)
 ```
 <a name="headers"></a>
 
