@@ -85,9 +85,7 @@ function fetchMethod (methodName, url, definition, {debug, apiLog}) {
       }
     })
     .catch(error => {
-      if (debug) {
-        console.error('api error =>', url, body, error)
-      }
+      console.error('api error =>', url, body, error)
       try {
         callback(error)
       } catch(callbackError) {
