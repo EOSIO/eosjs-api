@@ -7,7 +7,7 @@ const API_VERSION = 'v1'
 Testnet.api = require('eosjs-json/api/v1')
 Testnet.schema = require('eosjs-json/schema')
 
-const configDefaults = {httpEndpoint: 'http://testnet1.eos.io'}
+const configDefaults = {httpEndpoint: 'http://t1readonly.eos.io'}
 
 /**
   @arg {object} config
