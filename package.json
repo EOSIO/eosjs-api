@@ -1,6 +1,6 @@
 {
   "name": "eosjs-api",
-  "version": "3.0.4",
+  "version": "4.0.0",
   "description": "Application programming interface to EOS blockchain nodes.",
   "main": "lib/index.js",
   "scripts": {
@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "camel-case": "^3.0.0",
-    "eosjs-json": "^2.0.3",
+    "eosjs-json": "^3.0.0",
     "is-browser": "^2.0.1",
     "isomorphic-fetch": "^2.2.1"
   },

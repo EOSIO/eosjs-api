@@ -33,7 +33,7 @@ module.exports = processArgs
   @throws TypeError - when parameter count is not exact (after adjusting for
   options and callback)
 
-  @example api.processArgs(args, ['code'], 'contract', optionsFormatter)
+  @example api.processArgs(args, ['account'], 'contract', optionsFormatter)
 */
 function processArgs (args, defParams, methodName = 'method', optionsFormatter = null) {
   let params = {}
