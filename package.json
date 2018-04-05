@@ -4,7 +4,7 @@
   "description": "Application programming interface to EOS blockchain nodes.",
   "main": "lib/index.js",
   "scripts": {
-    "test": "mocha src/**/*.test.js",
+    "test": "mocha --use_strict src/**/*.test.js",
     "test_lib": "mocha --use_strict lib/*.test.js",
     "coverage": "istanbul cover _mocha -- -R spec src/**/*.test.js",
     "coveralls": "npm run coverage && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
