@@ -50,12 +50,27 @@ testnet.getBlock({block_num_or_id: 1}).then(result => console.log(result))
 ```js
 api = require('eosjs-api') // Or api = require('./src')
 
+// optional
 options = {
   httpEndpoint: 'http://127.0.0.1:8888', // default
-  debug: false
+  debug: false,
+  fetchConfiguration: {}
 }
 
 testnet = api.Localnet(options)
+
+### options.fetchConfiguration example
+
+```js
+options.fetchConfiguration = {
+  credentials: 'same-origin'
+}
+```
+Every eosjs-api request will run [fetch](https://github.com/github/fetch#sending-cookies) with this configuration:
+```js
+fetch('https://example.com', {
+  credentials: 'same-origin'
+})
 ```
 
 ## API Documentation

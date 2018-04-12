@@ -28,7 +28,9 @@ function apiGen (version, definitions, config) {
   return Object.assign(api, helpers)
 }
 
-function fetchMethod (methodName, url, definition, {debug, apiLog}) {
+function fetchMethod (methodName, url, definition, config) {
+  const {debug, apiLog} = config
+
   return function (...args) {
     if (args.length === 0) {
       console.error(usage(methodName, definition))
@@ -63,7 +65,10 @@ function fetchMethod (methodName, url, definition, {debug, apiLog}) {
     if (debug) {
       console.error('api >', url, body)
     }
-    fetch(url, {body, method: 'POST'}).then(response => {
+    const fetchConfiguration = {body, method: 'POST'}
+    Object.assign(fetchConfiguration, config.fetchConfiguration)
+
+    fetch(url, fetchConfiguration).then(response => {
       if (response.status >= 200 && response.status < 300) {
         return response.json()
       } else {

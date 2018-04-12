@@ -26,16 +26,18 @@ describe('API Generator', function () {
   }
 })
 
-if(process.env['NODE_ENV'] === 'dev') {
+if(process.env['NODE_ENV'] === 'development') {
   describe('fetch', () => {
     const definitions = apiVersions.v1
-    const api = apiGen('v1', definitions)
+    const config = {fetchConfiguration: {credentials: 'same-origin'}}
+    const api = apiGen('v1', definitions, config)
+
     it('getBlock', (done) => {
       api.getBlock({block_num_or_id: 2}, (err, block) => {
         if(err) {
           throw err
         }
-        console.log('block', block)
+        assert(block.id, 'block.id')
         done()
       })
     })
