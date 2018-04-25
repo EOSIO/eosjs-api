@@ -90,12 +90,21 @@ function fetchMethod (methodName, url, definition, config) {
       }
     })
     .catch(error => {
-      console.error('api error =>', url, body, error)
+      let message = ''
+      try {
+        // nodeos format (fail safe)
+        message = JSON.parse(error.message).error.details[0]
+      } catch(e2) {}
+
+      console.error('api error =>', message, url, body)
+      console.error(error)
+
       try {
         callback(error)
       } catch(callbackError) {
         console.error(callbackError)
       }
+
     })
 
     return returnPromise
