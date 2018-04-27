@@ -1,0 +1,45 @@
+{
+  "get_transaction": {
+    "brief": "Retrieve a transaction from the blockchain.",
+    "params": {
+      "transaction_id": "fixed_bytes32"
+    },
+    "results": {
+      "transaction_id": "fixed_bytes32",
+      "transaction": "Transaction"
+    }
+  },
+
+  "get_transactions": {
+    "brief": "Retrieve all transactions with specific account name.",
+    "params": {
+      "account_name": "account_name",
+      "skip_seq": "optional<uint32>",
+      "num_seq": "optional<uint32>"
+    },
+    "results": {
+      "transactions": "vector<ordered_transaction_results>",
+      "time_limit_exceeded_error": "optional<bool>"
+    }
+  },
+
+  "get_key_accounts": {
+    "brief": "Retrieve accounts associated with a public key.",
+    "params": {
+      "public_key": "public_key"
+    },
+    "results": {
+      "account_names": "vector[name]"
+    }
+  },
+
+  "get_controlled_accounts": {
+    "brief": "Retrieve accounts which are created by the given account.",
+    "params": {
+      "controlling_account": "name"
+    },
+    "results": {
+      "controlled_accounts": "vector[name]"
+    }
+  }
+}

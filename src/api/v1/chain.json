@@ -1,0 +1,171 @@
+{
+  "get_currency_balance": {
+    "params": {
+      "code": "name",
+      "account": "name",
+      "symbol": "optional<string>"
+    },
+    "results": "asset[]"
+  },
+  "get_currency_stats": {
+    "params": {
+      "code": "name",
+      "symbol": "optional<string>"
+    },
+    "results": {
+      "supply": "asset"
+    }
+  },
+  "get_info": {
+    "brief": "Return general network information.",
+    "params": null,
+    "results": {
+      "head_block_num": "uint32",
+      "last_irreversible_block_num": "uint32",
+      "head_block_id": "fixed_bytes32",
+      "head_block_time": "time",
+      "head_block_producer": {"_id": "uint16"},
+      "recent_slots": "string",
+      "participation_rate": "double"
+    }
+  },
+
+  "get_block": {
+    "brief": "Fetch a block from the blockchain.",
+    "params": {
+      "block_num_or_id": "string"
+    },
+    "results": {
+      "previous":"uint32",
+      "timestamp":"time",
+      "transaction_merkle_root":"uint32",
+      "producer": "uint16",
+      "producer_changes":"map<account_name, account_name>[]",
+      "producer_signature":"signature",
+      "cycles": "thread[]",
+      "id": "fixed_bytes33",
+      "block_num": "uint32",
+      "ref_block_prefix": "uint32"
+    },
+    "errors": {
+      "unknown block": null
+    }
+  },
+
+  "get_account": {
+    "brief": "Fetch a blockchain account",
+    "params": {
+      "account_name": "name"
+    },
+    "results": {
+      "account_name": "name",
+      "eos_balance": "uint64",
+      "staked_balance": "uint64",
+      "unstaking_balance": "uint64",
+      "last_unstaking_time": "time",
+      "permissions": "vector<permission>",
+      "producer": "optional<producer_info>"
+    }
+  },
+
+  "get_code": {
+    "brief": "Fetch smart contract code",
+    "params": {
+      "account_name": "name"
+    },
+    "results": {
+      "account_name": "name",
+      "wast": "string",
+      "code_hash": "fixed_bytes32",
+      "abi": "optional<abi_def>"
+    }
+  },
+
+  "get_table_rows": {
+    "brief": "Fetch smart contract data from an account.",
+    "params": {
+      "json": { "type": "bool", "default": false},
+      "code": "name",
+      "scope": "name",
+      "table": "name",
+      "table_key": "string",
+      "lower_bound": {"type": "uint64", "default": "0"},
+      "upper_bound": {"type": "uint64", "default": "-1"},
+      "limit": {"type": "uint32", "default": "10"}
+    },
+    "results": {
+      "rows": {
+        "type": "vector",
+        "doc": "one row per item, either encoded as hex String or JSON object"
+      },
+      "more": {
+        "type": "bool",
+        "doc": "true if last element"
+      }
+    }
+  },
+
+  "abi_json_to_bin": {
+    "brief": "Manually serialize json into binary hex.  The binayargs is usually stored in Message.data.",
+    "params": {
+      "code": "name",
+      "action": "name",
+      "args": "bytes"
+    },
+    "results": {
+      "binargs": "bytes",
+      "required_scope": "name[]",
+      "required_auth": "name[]"
+    }
+  },
+
+  "abi_bin_to_json": {
+    "brief": "Convert bin hex back into Abi json definition.",
+    "params": {
+      "code": "name",
+      "action": "name",
+      "binargs": "bytes"
+    },
+    "results": {
+      "args": "bytes",
+      "required_scope": "name[]",
+      "required_auth": "name[]"
+    }
+  },
+
+  "get_required_keys": {
+    "params": {
+      "transaction": "transaction",
+      "available_keys": "set[public_key]"
+    },
+    "results": "Set[public_key]"
+  },
+
+  "push_block": {
+    "brief": "Append a block to the chain database.",
+    "params": {
+      "block": "signed_block"
+    },
+    "results": null
+  },
+
+  "push_transaction": {
+    "brief": "Attempts to push the transaction into the pending queue.",
+    "params": {
+      "signed_transaction": "signed_transaction"
+    },
+    "results": {
+      "transaction_id": "fixed_bytes32",
+      "processed": "bytes"
+    }
+  },
+
+  "push_transactions": {
+    "brief": "Attempts to push transactions into the pending queue.",
+    "params": {
+      "signed_transaction[]": "signed_transaction"
+    },
+    "results": "vector[push_transaction.results]"
+  }
+
+}

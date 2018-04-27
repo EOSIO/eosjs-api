@@ -4,7 +4,7 @@ const camelCase = require('camel-case')
 const apiGen = require('./apigen')
 
 const apiVersions = {
-  v1: require(`eosjs-json/api/v1`)
+  v1: require(`./api/v1`)
 }
 
 describe('API Generator', function () {

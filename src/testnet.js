@@ -5,8 +5,7 @@ module.exports = Testnet
 
 const API_VERSION = 'v1'
 
-Testnet.api = require('eosjs-json/api/v1')
-Testnet.schema = require('eosjs-json/schema')
+Testnet.api = require('./api/v1')
 
 // Always use SSL unless a browser protocol is 'http'
 const protocol = isBrowser &&

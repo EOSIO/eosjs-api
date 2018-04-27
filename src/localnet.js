@@ -1,11 +1,10 @@
 const apiGen = require('./apigen')
 
-module.exports = Testnet
+module.exports = Localnet
 
 const API_VERSION = 'v1'
 
-Testnet.api = require('eosjs-json/api/v1')
-Testnet.schema = require('eosjs-json/schema')
+Localnet.api = require('./api/v1')
 
 // Change httpEndpoint to public testnet when available
 const configDefaults = {httpEndpoint: 'http://127.0.0.1:8888'}
@@ -13,7 +12,7 @@ const configDefaults = {httpEndpoint: 'http://127.0.0.1:8888'}
 /**
   @arg {object} config
 */
-function Testnet (config) {
+function Localnet (config) {
   config = Object.assign({}, configDefaults, config)
-  return apiGen(API_VERSION, Testnet.api, config)
+  return apiGen(API_VERSION, Localnet.api, config)
 }
