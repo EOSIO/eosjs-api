@@ -13,7 +13,7 @@ Internet access
 
 ## api.Localnet()
 
-Build and run [eosd](https://github.com/eosio/eos) or direct requests to a public testnet or production node.
+Build and run [nodeos](https://github.com/eosio/eos) or direct requests to a public testnet or production node.
 
 ## Usage
 
