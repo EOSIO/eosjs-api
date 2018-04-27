@@ -1,6 +1,6 @@
 {
   "name": "eosjs-api",
-  "version": "4.0.3",
+  "version": "5.0.0",
   "description": "Application programming interface to EOS blockchain nodes.",
   "main": "lib/index.js",
   "scripts": {
