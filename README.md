@@ -58,7 +58,7 @@ options = {
 }
 
 testnet = api.Localnet(options)
-
+```
 ### options.fetchConfiguration example
 
 ```js
