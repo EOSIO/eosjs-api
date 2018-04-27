@@ -84,8 +84,4 @@ Helper functions:
 
 ## Environment
 
-Node 6+ and browser (browserify, webpack, etc)
-
-## TODO
-
-Automate code-coverage after a public testnet is available.
+Node and browser (es2015)
