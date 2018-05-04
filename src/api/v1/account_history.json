@@ -2,12 +2,9 @@
   "get_transaction": {
     "brief": "Retrieve a transaction from the blockchain.",
     "params": {
-      "transaction_id": "fixed_bytes32"
+      "transaction_id": "transaction_id"
     },
-    "results": {
-      "transaction_id": "fixed_bytes32",
-      "transaction": "Transaction"
-    }
+    "results": "packed_transaction"
   },
 
   "get_transactions": {
@@ -29,17 +26,17 @@
       "public_key": "public_key"
     },
     "results": {
-      "account_names": "vector[name]"
+      "account_names": "vector[account_name]"
     }
   },
 
   "get_controlled_accounts": {
     "brief": "Retrieve accounts which are created by the given account.",
     "params": {
-      "controlling_account": "name"
+      "controlling_account": "account_name"
     },
     "results": {
-      "controlled_accounts": "vector[name]"
+      "controlled_accounts": "vector[account_name]"
     }
   }
 }

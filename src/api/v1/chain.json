@@ -10,23 +10,29 @@
   "get_currency_stats": {
     "params": {
       "code": "name",
-      "symbol": "optional<string>"
+      "symbol": "string"
     },
     "results": {
-      "supply": "asset"
+      "supply": "asset",
+      "max_supply": "asset",
+      "issuer": "account_name"
     }
   },
   "get_info": {
     "brief": "Return general network information.",
     "params": null,
     "results": {
-      "head_block_num": "uint32",
-      "last_irreversible_block_num": "uint32",
-      "head_block_id": "fixed_bytes32",
-      "head_block_time": "time",
-      "head_block_producer": {"_id": "uint16"},
-      "recent_slots": "string",
-      "participation_rate": "double"
+      "server_version" : "string",
+      "head_block_num" : "uint32",
+      "last_irreversible_block_num" : "uint32",
+      "last_irreversible_block_id" : "block_id",
+      "head_block_id" : "block_id",
+      "head_block_time" : "time_point_sec",
+      "head_block_producer" : "account_name",
+      "virtual_block_cpu_limit" : "uint64",
+      "virtual_block_net_limit" : "uint64",
+      "block_cpu_limit" : "uint64",
+      "block_net_limit" : "uint64"
     }
   },
 
@@ -36,13 +42,14 @@
       "block_num_or_id": "string"
     },
     "results": {
-      "previous":"uint32",
+      "previous":"block_id",
       "timestamp":"time",
-      "transaction_merkle_root":"uint32",
-      "producer": "uint16",
-      "producer_changes":"map<account_name, account_name>[]",
+      "transaction_mroot":"checksum256",
+      "action_mroot":"checksum256",
+      "producer": "account_name",
+      "schedule_version":"uint32",
       "producer_signature":"signature",
-      "cycles": "thread[]",
+      "transactions": "transaction[]",
       "id": "fixed_bytes33",
       "block_num": "uint32",
       "ref_block_prefix": "uint32"
@@ -59,12 +66,16 @@
     },
     "results": {
       "account_name": "name",
-      "eos_balance": "uint64",
-      "staked_balance": "uint64",
-      "unstaking_balance": "uint64",
-      "last_unstaking_time": "time",
-      "permissions": "vector<permission>",
-      "producer": "optional<producer_info>"
+      "privileged": "bool",
+      "last_code_update": "time_point",
+      "created": "time_point",
+      "ram_quota": "int64",
+      "net_weight": "int64",
+      "cpu_weight": "int64",
+      "net_limit": "int64",
+      "cpu_limit": "int64",
+      "ram_usage": "int64",
+      "permissions": "vector<permission>"
     }
   },
 
@@ -76,7 +87,7 @@
     "results": {
       "account_name": "name",
       "wast": "string",
-      "code_hash": "fixed_bytes32",
+      "code_hash": "sha256",
       "abi": "optional<abi_def>"
     }
   },
@@ -89,8 +100,8 @@
       "scope": "name",
       "table": "name",
       "table_key": "string",
-      "lower_bound": {"type": "uint64", "default": "0"},
-      "upper_bound": {"type": "uint64", "default": "-1"},
+      "lower_bound": {"type": "string", "default": "0"},
+      "upper_bound": {"type": "string", "default": "-1"},
       "limit": {"type": "uint32", "default": "10"}
     },
     "results": {
@@ -113,9 +124,7 @@
       "args": "bytes"
     },
     "results": {
-      "binargs": "bytes",
-      "required_scope": "name[]",
-      "required_auth": "name[]"
+      "binargs": "bytes"
     }
   },
 
