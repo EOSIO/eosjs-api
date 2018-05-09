@@ -64,7 +64,7 @@ options = {
 
 testnet = api.Localnet(options)
 ```
-### options.logging example
+### options.logger example
 
 During testing, an error may be expected and checked as follows:
 

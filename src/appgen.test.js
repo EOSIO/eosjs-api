@@ -31,7 +31,7 @@ describe('API Generator', function() {
           debugLog = true
         },
         error: (err) => {
-          assert.equal(err, 'unexpected callback error')
+          assert.equal(err, 'callback error')
           done()
         }
       },
@@ -45,7 +45,7 @@ describe('API Generator', function() {
     api.getBlock(1, () => {
       assert(debugLog, 'debugLog')
       assert(apiLog, 'apiLog')
-      throw 'unexpected callback error'
+      throw 'callback error'
     })
   })
 
