@@ -7,13 +7,21 @@ module.exports = apiGen
 
 const configDefaults = {
   httpEndpoint: 'http://127.0.0.1:8888',
-  debug: false
+  debug: false, // debug logging
+  logger: {
+    log: console.log,
+    error: console.error,
+    debug: console.debug
+  }
 }
 
 function apiGen (version, definitions, config) {
   config = Object.assign({}, configDefaults, config)
+  Object.assign(configDefaults.logger, config.logger)
+
   const api = {}
   const {httpEndpoint} = config
+
   for (const apiGroup in definitions) {
     for (const apiMethod in definitions[apiGroup]) {
       const methodName = camelCase(apiMethod)
@@ -29,11 +37,13 @@ function apiGen (version, definitions, config) {
 }
 
 function fetchMethod (methodName, url, definition, config) {
-  const {debug, apiLog} = config
+  const {debug, apiLog, logger} = config
 
   return function (...args) {
     if (args.length === 0) {
-      console.error(usage(methodName, definition))
+      if(logger.log) {
+        logger.log(usage(methodName, definition))
+      }
       return
     }
 
@@ -50,11 +60,13 @@ function fetchMethod (methodName, url, definition, config) {
 
     if(apiLog) {
       // wrap the callback with the logger
+
       const superCallback = callback
       callback = (error, tr) => {
         if(error) {
           apiLog(error, methodName)
         } else {
+          // TODO apiLog(error, methodName, result)
           apiLog(null, tr, methodName)
         }
         superCallback(error, tr)
@@ -62,8 +74,8 @@ function fetchMethod (methodName, url, definition, config) {
     }
 
     const body = JSON.stringify(params)
-    if (debug) {
-      console.error('api >', url, body)
+    if (debug && logger.debug) {
+      logger.debug('api >', url, body)
     }
     const fetchConfiguration = {body, method: 'POST'}
     Object.assign(fetchConfiguration, config.fetchConfiguration)
@@ -80,13 +92,15 @@ function fetchMethod (methodName, url, definition, config) {
         })
       }
     }).then(objectResp => {
-      if (debug) {
-        console.error('api <', objectResp)
+      if (debug && logger.debug) {
+        logger.debug('api <', objectResp)
       }
       try {
         callback(null, objectResp)
       } catch(callbackError) {
-        console.error(callbackError)
+        if(logger.error) {
+          logger.error(callbackError)
+        }
       }
     })
     .catch(error => {
@@ -96,15 +110,18 @@ function fetchMethod (methodName, url, definition, config) {
         message = JSON.parse(error.message).error.details[0]
       } catch(e2) {}
 
-      console.error('api error =>', message, url, body)
-      console.error(error)
+      if(logger.error) {
+        logger.error('api error =>', message, url, body)
+        logger.error(error)
+      }
 
       try {
         callback(error)
       } catch(callbackError) {
-        console.error(callbackError)
+        if(logger.error) {
+          logger.error(callbackError)
+        }
       }
-
     })
 
     return returnPromise

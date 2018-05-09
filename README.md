@@ -50,15 +50,32 @@ testnet.getBlock({block_num_or_id: 1}).then(result => console.log(result))
 ```js
 api = require('eosjs-api') // Or api = require('./src')
 
-// optional
+// everything is optional
 options = {
   httpEndpoint: 'http://127.0.0.1:8888', // default
-  debug: false,
+  debug: false, // API logging
+  logger: { // Default logging functions
+    log: console.log,
+    error: console.error,
+    debug: console.debug
+  },
   fetchConfiguration: {}
 }
 
 testnet = api.Localnet(options)
 ```
+### options.logging example
+
+During testing, an error may be expected and checked as follows:
+
+```js
+options.logger = {
+  error: err => {
+    assert.equal(err, 'expected error')
+  }
+}
+```
+
 ### options.fetchConfiguration example
 
 ```js

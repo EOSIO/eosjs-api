@@ -7,7 +7,76 @@ const apiVersions = {
   v1: require(`./api/v1`)
 }
 
-describe('API Generator', function () {
+describe('API Generator', function() {
+  it('usage', function (done) {
+    const api = apiGen('v1', apiVersions.v1, {logger: {log: usage => {
+      if(/USAGE/.test(usage)) {
+        done()
+      }
+    }}})
+    api.getInfo() // no args triggers usage
+  })
+
+  it('optionsFormatter', function () {
+    const api = apiGen('v1', apiVersions.v1)
+    api.getInfo(true)
+  })
+
+  it('logging', function (done) {
+    let debugLog, apiLog
+    const config = {
+      debug: true, // enables verbose debug logger
+      logger: {
+        debug: () => {
+          debugLog = true
+        },
+        error: (err) => {
+          assert.equal(err, 'unexpected callback error')
+          done()
+        }
+      },
+      apiLog: () => {
+        apiLog = true
+      }
+    }
+
+    const api = apiGen('v1', apiVersions.v1, config)
+
+    api.getBlock(1, () => {
+      assert(debugLog, 'debugLog')
+      assert(apiLog, 'apiLog')
+      throw 'unexpected callback error'
+    })
+  })
+
+  it('api promise error', function () {
+    let errorLog, apiLog
+    const config = {
+      logger: {error: e => {
+        errorLog = true
+      }},
+      apiLog: (error) => {
+        apiLog = true
+      }
+    }
+    const api = apiGen('v1', apiVersions.v1, config)
+    return api.getBlock('a').catch(e => {
+      assert(errorLog, 'errorLog')
+      assert(apiLog, 'apiLog')
+    })
+  })
+
+  it('api callback error', function () {
+    let errorLog
+    const config = {logger: {error: e => {
+      errorLog = true
+    }}}
+    const api = apiGen('v1', apiVersions.v1, config)
+    return api.getBlock('a', error => {
+      throw new Error('callback error')
+    })
+  })
+
   for (const version in apiVersions) {
     describe(version, function () {
       const definitions = apiVersions[version]
