@@ -22,6 +22,41 @@ describe('API Generator', function() {
     api.getInfo(true)
   })
 
+  for (const version in apiVersions) {
+    describe(version, function () {
+      const definitions = apiVersions[version]
+      const api = apiGen(version, definitions)
+      for (const apiGroup in definitions) {
+        describe(apiGroup, function () {
+          for (const apiMethod in apiVersions[version][apiGroup]) {
+            const methodName = camelCase(apiMethod)
+            it(methodName, function () {
+              assert.equal(typeof api[methodName], 'function')
+            })
+          }
+        })
+      }
+    })
+  }
+})
+
+if(process.env['NODE_ENV'] === 'development') {
+  describe('fetch', () => {
+    const definitions = apiVersions.v1
+    const config = {fetchConfiguration: {credentials: 'same-origin'}}
+    const api = apiGen('v1', definitions, config)
+
+    it('getBlock', (done) => {
+      api.getBlock({block_num_or_id: 2}, (err, block) => {
+        if(err) {
+          throw err
+        }
+        assert(block.id, 'block.id')
+        done()
+      })
+    })
+  })
+
   it('logging', function (done) {
     let debugLog, apiLog
     const config = {
@@ -74,41 +109,6 @@ describe('API Generator', function() {
     const api = apiGen('v1', apiVersions.v1, config)
     return api.getBlock('a', error => {
       throw new Error('callback error')
-    })
-  })
-
-  for (const version in apiVersions) {
-    describe(version, function () {
-      const definitions = apiVersions[version]
-      const api = apiGen(version, definitions)
-      for (const apiGroup in definitions) {
-        describe(apiGroup, function () {
-          for (const apiMethod in apiVersions[version][apiGroup]) {
-            const methodName = camelCase(apiMethod)
-            it(methodName, function () {
-              assert.equal(typeof api[methodName], 'function')
-            })
-          }
-        })
-      }
-    })
-  }
-})
-
-if(process.env['NODE_ENV'] === 'development') {
-  describe('fetch', () => {
-    const definitions = apiVersions.v1
-    const config = {fetchConfiguration: {credentials: 'same-origin'}}
-    const api = apiGen('v1', definitions, config)
-
-    it('getBlock', (done) => {
-      api.getBlock({block_num_or_id: 2}, (err, block) => {
-        if(err) {
-          throw err
-        }
-        assert(block.id, 'block.id')
-        done()
-      })
     })
   })
 }
