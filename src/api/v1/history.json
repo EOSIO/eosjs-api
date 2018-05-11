@@ -1,0 +1,39 @@
+{
+  "get_actions": {
+    "params": {
+      "account_name": "account_name",
+      "pos": "int32?",
+      "offset": "int32?"
+    },
+    "results": {
+      "actions": "ordered_action_result[]",
+      "last_irreversible_block": "uint32",
+      "time_limit_exceeded_error": "bool?"
+    },
+    "structs": [{
+      "name": "ordered_action_result",
+      "fields": {
+        "global_action_seq": "uint64",
+        "account_action_seq": "int32",
+        "block_num": "uint32",
+        "block_time": "block_timestamp_type",
+        "action_trace": "variant"
+      }
+    }]
+  },
+
+  "get_transaction": {
+    "brief": "Retrieve a transaction from the blockchain.",
+    "params": {
+      "id": "transaction_id_type"
+    },
+    "results": {
+      "id": "transaction_id_type",
+      "trx": "variant",
+      "block_time": "block_timestamp_type",
+      "block_num": "uint32",
+      "last_irreversible_block": "uint32",
+      "traces": "variant[]"
+    }
+  }
+}
