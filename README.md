@@ -20,7 +20,7 @@ Build and run [nodeos](https://github.com/eosio/eos) or direct requests to a pub
 ```javascript
 api = require('eosjs-api') // Or api = require('./src')
 
-testnet = api.Testnet() // See ./src/testnet.js for configuration
+testnet = api.Localnet() // See ./src/testnet.js for configuration
 
 // Any API call without a callback parameter will print documentation: description,
 // parameters, return value, and possible errors.  All methods and documentation
