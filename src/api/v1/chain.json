@@ -18,6 +18,28 @@
       "issuer": "account_name"
     }
   },
+  "get_producers": {
+    "brief": "Fetch smart contract data from producer.",
+    "params": {
+      "json": { "type": "bool", "default": false},
+      "lower_bound": "string",
+      "limit": {"type": "uint32", "default": "10"}
+    },
+    "results": {
+      "rows": {
+        "type": "vector",
+        "doc": "one row per item, either encoded as hex String or JSON object"
+      },
+      "total_producer_vote_weight": {
+        "type": "float64",
+        "doc": "total vote"
+      },
+      "more": {
+        "type": "string",
+        "doc": "fill lower_bound with this value to fetch more rows"
+      }
+    }
+  },
   "get_info": {
     "brief": "Return general network information.",
     "params": null,
@@ -41,19 +63,7 @@
     "params": {
       "block_num_or_id": "string"
     },
-    "results": {
-      "previous":"block_id",
-      "timestamp":"time",
-      "transaction_mroot":"checksum256",
-      "action_mroot":"checksum256",
-      "producer": "account_name",
-      "schedule_version":"uint32",
-      "producer_signature":"signature",
-      "transactions": "transaction[]",
-      "id": "fixed_bytes33",
-      "block_num": "uint32",
-      "ref_block_prefix": "uint32"
-    },
+    "results": "variant",
     "errors": {
       "unknown block": null
     }
@@ -75,7 +85,10 @@
       "net_limit": "int64",
       "cpu_limit": "int64",
       "ram_usage": "int64",
-      "permissions": "vector<permission>"
+      "permissions": "vector<permission>",
+      "total_resources": "variant",
+      "delegated_bandwidth": "variant",
+      "voter_info": "variant"
     }
   },
 
