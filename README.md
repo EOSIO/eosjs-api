@@ -7,48 +7,44 @@ Application programming interface to EOS blockchain nodes.  This is mostly for r
 
 # Requirements
 
-## api.Testnet()
-
-Internet access
-
 ## api.Localnet()
 
-Build and run [nodeos](https://github.com/eosio/eos) or direct requests to a public testnet or production node.
+Run [nodeos](https://github.com/eosio/eos)
 
 ## Usage
 
 ```javascript
-api = require('eosjs-api') // Or api = require('./src')
+EosApi = require('eosjs-api') // Or EosApi = require('./src')
 
-testnet = api.Localnet() // See ./src/testnet.js for configuration
+eos = EosApi.Localnet() // See ./src/localnet.js for configuration
 
 // Any API call without a callback parameter will print documentation: description,
 // parameters, return value, and possible errors.  All methods and documentation
 // are created from JSON files in eosjs/json/api/v1..
-testnet.getInfo()
+eos.getInfo()
 
 // A Promise is returned if a callback is not provided.
-testnet.getInfo({}).then(result => console.log(result))
-testnet.getBlock(1).then(result => console.log(result))
+eos.getInfo({}).then(result => console.log(result))
+eos.getBlock(1).then(result => console.log(result))
 
 // For callbacks instead of Promises provide a callback
 callback = (err, res) => {err ? console.error(err) : console.log(res)}
 
 // The server does not expect any parameters only the callback is needed
-testnet.getInfo(callback)
+eos.getInfo(callback)
 
 // Parameters are added before the callback
-testnet.getBlock(1, callback)
+eos.getBlock(1, callback)
 
 // Parameters can be an object
-testnet.getBlock({block_num_or_id: 1}, callback)
-testnet.getBlock({block_num_or_id: 1}).then(result => console.log(result))
+eos.getBlock({block_num_or_id: 1}, callback)
+eos.getBlock({block_num_or_id: 1}).then(result => console.log(result))
 ```
 
 ## Configuration
 
 ```js
-api = require('eosjs-api') // Or api = require('./src')
+EosApi = require('eosjs-api') // Or EosApi = require('./src')
 
 // everything is optional
 options = {
@@ -62,7 +58,7 @@ options = {
   fetchConfiguration: {}
 }
 
-testnet = api.Localnet(options)
+eos = EosApi.Localnet(options)
 ```
 ### options.logger example
 
