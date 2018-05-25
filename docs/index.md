@@ -49,7 +49,7 @@ Consult the blockchain and gather information for use in a new signed transactio
 
 **Example**  
 ```js
-testnet.createTransaction(60, (error, headers) => {})
+eos.createTransaction(60, (error, headers) => {})
 ```
 <a name="processArgs"></a>
 
