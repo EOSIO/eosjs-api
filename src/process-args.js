@@ -43,15 +43,7 @@ function processArgs (args, defParams, methodName = 'method', optionsFormatter =
 
   // Extra callback argument?  Last per promisifyAll standard.
   let callbackArg
-  if (
-    args.length - expectedArgCount >= 1 &&
-    args.length - expectedArgCount <= 2 &&
-    typeof args[args.length - 1] === 'function'
-    // && optionsFormatter(args[args.length - 1]) == null // <- non-option arg (likely always true)
-  ) {
-    // Create a new callback that will resolve the original callback or
-    // the returnPromise (promise is used when no original callback is provided)
-
+  if (typeof args[args.length - 1] === 'function') {
     callbackArg = args[args.length - 1]
     args = args.slice(0, args.length - 1)
   }

@@ -48,6 +48,15 @@ describe('Process Args', function () {
     r.callback()
   })
 
+  it('callback object', done => {
+    const callback = (err, res) => {if(!err) {done()} else {console.error(err)}}
+    const argsCallback = [{arg1: 1, arg2: 2, arg3: 3}, callback]
+
+    const r = processArgs(argsCallback, ['arg1', 'arg2', 'arg3'])
+    assert.deepEqual(r.params, {arg1: 1, arg2: 2, arg3: 3})
+    r.callback()
+  })
+
   it('callback error', done => {
     const callback = (err, res) => {if(err) {} else {throw 'expecting error'}}
     const argsCallback = [1, 2, callback]
