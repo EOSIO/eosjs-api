@@ -87,7 +87,7 @@ api.processArgs(args, ['account'], 'contract', optionsFormatter)
 
 | Name | Type | Description |
 | --- | --- | --- |
-| ref_block_num | <code>number</code> | Recent head block number (ideally last   irreversible block).  The bit-wise AND operation is used to keep this value   with the size of a Uint16 size.   Example:`(get_info.head_block_num - 3) & 0xFFFF` |
+| ref_block_num | <code>number</code> | Last irreversible block number.  The   bit-wise AND operation is used to keep this value with the size of a Uint16   size (a block num in the last 2^16 blocks).  Example:   `get_info.last_irreversible_block_num & 0xFFFF` |
 | ref_block_prefix | <code>number</code> | get_block.ref_block_prefix .. This is   a 32 bit number identifier (identify the same block referenced in `ref_block_num`). |
 | expiration | <code>string</code> | This is based on the head block time from the   blockchain.  Be careful to suffix a Z if required (as with Firefox and JavaScript)   to ensure this date string is interpreted as Zulu time.   Example: `new Date(new Date(info.head_block_time + 'Z').getTime() + expireInSeconds * 1000).toISOString().split('.')[0]` |
 
