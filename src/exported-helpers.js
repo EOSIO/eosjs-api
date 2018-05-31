@@ -8,10 +8,10 @@ module.exports = {
 
 /**
   @typedef {object} headers
-  @property {number} ref_block_num - Recent head block number (ideally last
-  irreversible block).  The bit-wise AND operation is used to keep this value
-  with the size of a Uint16 size.
-  Example:`(get_info.head_block_num - 3) & 0xFFFF`
+  @property {number} ref_block_num - Last irreversible block number.  The
+  bit-wise AND operation is used to keep this value with the size of a Uint16
+  size (a block num in the last 2^16 blocks).  Example:
+  `get_info.last_irreversible_block_num & 0xFFFF`
 
   @property {number} ref_block_prefix - get_block.ref_block_prefix .. This is
   a 32 bit number identifier (identify the same block referenced in `ref_block_num`).
@@ -44,12 +44,11 @@ function createTransaction(api, expireInSeconds = 60, callback) {
   api.getInfo(checkError(callback, info => {
     const chainDate = new Date(info.head_block_time + 'Z')
 
-    // Back-up 3 blocks to help avoid mini-forks.
-    // todo: dawn3 ((head_blocknum/0xffff)*0xffff) + head_blocknum%0xffff
-    const ref_block_num = (info.head_block_num - 3) & 0xFFFF
-
-    api.getBlock(info.head_block_num - 3, checkError(callback, block => {
+    api.getBlock(info.last_irreversible_block_num, checkError(callback, block => {
       const expiration = new Date(chainDate.getTime() + expireInSeconds * 1000)
+
+      const ref_block_num = info.last_irreversible_block_num & 0xFFFF
+
       const headers = {
         expiration: expiration.toISOString().split('.')[0],
         ref_block_num,
