@@ -1,7 +1,7 @@
 {
   "get_currency_balance": {
     "params": {
-      "code": "name",
+      "contract": "name",
       "account": "name",
       "symbol": "optional<string>"
     },
@@ -9,7 +9,7 @@
   },
   "get_currency_stats": {
     "params": {
-      "code": "name",
+      "contract": "name",
       "symbol": "string"
     },
     "results": {
