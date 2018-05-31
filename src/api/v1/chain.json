@@ -9,7 +9,7 @@
   },
   "get_currency_stats": {
     "params": {
-      "code": "name",
+      "contract": "name",
       "symbol": "string"
     },
     "results": {
