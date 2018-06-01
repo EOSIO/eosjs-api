@@ -3,11 +3,13 @@
 
 # Eos API
 
-Application programming interface to EOS blockchain nodes.  This is mostly for read-only API calls.  If you decide you need to sign transactions, your better off using this API in the [eosjs](https://github.com/eosio/eosjs) package.
+Application programming interface to EOS blockchain nodes.  This is for
+read-only API calls.  If you need to sign transactions use
+[eosjs](https://github.com/eosio/eosjs) instead.
 
 # Requirements
 
-## api.Localnet()
+## EosApi
 
 Run [nodeos](https://github.com/eosio/eos)
 
@@ -16,7 +18,7 @@ Run [nodeos](https://github.com/eosio/eos)
 ```javascript
 EosApi = require('eosjs-api') // Or EosApi = require('./src')
 
-eos = EosApi.Localnet() // See ./src/localnet.js for configuration
+eos = EosApi() // // 127.0.0.1:8888
 
 // Any API call without a callback parameter will print documentation: description,
 // parameters, return value, and possible errors.  All methods and documentation
@@ -58,7 +60,7 @@ options = {
   fetchConfiguration: {}
 }
 
-eos = EosApi.Localnet(options)
+eos = EosApi(options)
 ```
 ### options.logger example
 
