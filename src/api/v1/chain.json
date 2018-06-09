@@ -87,7 +87,7 @@
       "ram_usage": "int64",
       "permissions": "vector<permission>",
       "total_resources": "variant",
-      "delegated_bandwidth": "variant",
+      "self_delegated_bandwidth": "variant",
       "voter_info": "variant"
     }
   },
