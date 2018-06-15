@@ -17,7 +17,7 @@ const configDefaults = {
 
 function apiGen (version, definitions, config) {
   config = Object.assign({}, configDefaults, config)
-  Object.assign(configDefaults.logger, config.logger)
+  config.logger = Object.assign({}, configDefaults.logger, config.logger)
 
   const api = {}
   const {httpEndpoint} = config
@@ -37,7 +37,7 @@ function apiGen (version, definitions, config) {
 }
 
 function fetchMethod (methodName, url, definition, config) {
-  const {debug, apiLog, logger} = config
+  const {debug, logger} = config
 
   return function (...args) {
     if (args.length === 0) {
@@ -58,16 +58,16 @@ function fetchMethod (methodName, url, definition, config) {
     const {params, options, returnPromise} = processedArgs
     let {callback} = processedArgs
 
-    if(apiLog) {
+    if(logger.log || logger.error) {
       // wrap the callback with the logger
-
       const superCallback = callback
       callback = (error, tr) => {
-        if(error) {
-          apiLog(error, methodName)
+        if(error && logger.error) {
+          logger.error(methodName, error)
         } else {
-          // TODO apiLog(error, methodName, result)
-          apiLog(null, tr, methodName)
+          if(logger.log) {
+            logger.log(methodName, JSON.stringify(tr, null, 4))
+          }
         }
         superCallback(error, tr)
       }

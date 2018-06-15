@@ -62,6 +62,9 @@ if(process.env['NODE_ENV'] === 'development') {
     const config = {
       debug: true, // enables verbose debug logger
       logger: {
+        log: () => {
+          apiLog = true
+        },
         debug: () => {
           debugLog = true
         },
@@ -69,9 +72,6 @@ if(process.env['NODE_ENV'] === 'development') {
           assert.equal(err, 'callback error')
           done()
         }
-      },
-      apiLog: () => {
-        apiLog = true
       }
     }
 
@@ -84,20 +84,26 @@ if(process.env['NODE_ENV'] === 'development') {
     })
   })
 
-  it('api promise error', function () {
+  it('api promise error', async function () {
     let errorLog, apiLog
     const config = {
-      logger: {error: e => {
-        errorLog = true
-      }},
-      apiLog: (error) => {
-        apiLog = true
+      logger: {
+        error: e => {
+          errorLog = true
+        },
+        log: s => {
+          apiLog = true
+        }
       }
     }
     const api = apiGen('v1', apiVersions.v1, config)
-    return api.getBlock('a').catch(e => {
+
+    await api.getBlock(1)
+    assert(apiLog, 'apiLog')
+    assert(!errorLog, '!errorLog')
+
+    await api.getBlock('a').catch(e => {
       assert(errorLog, 'errorLog')
-      assert(apiLog, 'apiLog')
     })
   })
 
