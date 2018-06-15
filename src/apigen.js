@@ -66,7 +66,7 @@ function fetchMethod (methodName, url, definition, config) {
           logger.error(methodName, error)
         } else {
           if(logger.log) {
-            logger.log(methodName, JSON.stringify(tr, null, 4))
+            logger.log(methodName, JSON.stringify(tr))
           }
         }
         superCallback(error, tr)
