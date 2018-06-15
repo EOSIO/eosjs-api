@@ -9,12 +9,9 @@ const apiVersions = {
 
 describe('API Generator', function() {
   it('usage', function (done) {
-    const api = apiGen('v1', apiVersions.v1, {logger: {log: usage => {
-      if(/USAGE/.test(usage)) {
-        done()
-      }
-    }}})
+    const api = apiGen('v1', apiVersions.v1)
     api.getInfo() // no args triggers usage
+    done()
   })
 
   it('optionsFormatter', function () {
@@ -58,18 +55,17 @@ if(process.env['NODE_ENV'] === 'development') {
   })
 
   it('logging', function (done) {
-    let debugLog, apiLog
+    let apiLog
     const config = {
-      debug: true, // enables verbose debug logger
+      verbose: true,
       logger: {
-        log: () => {
+        log: (...args) => {
+          // console.log(...args)
           apiLog = true
         },
-        debug: () => {
-          debugLog = true
-        },
-        error: (err) => {
-          assert.equal(err, 'callback error')
+        error: (...err) => {
+          // console.log(...err)
+          assert(/callback error/.test(err.join(' ')), 'callback error')
           done()
         }
       }
@@ -78,7 +74,6 @@ if(process.env['NODE_ENV'] === 'development') {
     const api = apiGen('v1', apiVersions.v1, config)
 
     api.getBlock(1, () => {
-      assert(debugLog, 'debugLog')
       assert(apiLog, 'apiLog')
       throw 'callback error'
     })
