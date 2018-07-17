@@ -1,4 +1,3 @@
-[![Build Status](https://travis-ci.org/EOSIO/eosjs-api.svg?branch=master)](https://travis-ci.org/EOSIO/eosjs-api)
 [![NPM](https://img.shields.io/npm/v/eosjs-api.svg)](https://www.npmjs.org/package/eosjs-api)
 
 # Eos API
