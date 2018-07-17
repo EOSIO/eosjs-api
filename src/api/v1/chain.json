@@ -69,6 +69,18 @@
     }
   },
 
+  "get_block_header_state": {
+    "brief": "Fetch the minimum state necessary to validate transaction headers.",
+    "params": {
+      "block_num_or_id": "string"
+    },
+    "results": "variant",
+    "errors": {
+      "block_id_type_exception": "Invalid block ID",
+      "unknown_block_exception": "Could not find reversible block"
+    }
+  },
+
   "get_account": {
     "brief": "Fetch a blockchain account",
     "params": {
