@@ -7,7 +7,31 @@ Application programming interface to EOS blockchain nodes.  This is for
 read-only API calls.  If you need to sign transactions use
 [eosjs](https://github.com/eosio/eosjs) instead.
 
-# Requirements
+# Include
+
+* Install with: `npm install eosjs-api`
+* Html script tag, see [releases](https://github.com/EOSIO/eosjs-api/releases) for the correct **version** and its matching script **integrity** hash.
+
+```html
+<html>
+<head>
+  <meta charset="utf-8">
+  <!--
+  sha512-IYwj6GAwIesy8iGiIrO0X+AvxH5obQT76WkkGlZHQXq6wlEyNJnjYFPVnqwYSN8ub7TYw9uW+zV+LNSoDGIdOA== lib/eos-api.js
+  sha512-mYMfavKfWmCmwoAl3bZPTuzI8zVaGT+mkS/JfKNj4JViRtNKdzpMDmV+/A4dQKWvZG0wiADIHa+eQ2MgX6LsJg== lib/eos-api.min.js
+  sha512-1qWZJLIq3SAdnPPu6daLmZfSDInpxH+GUnb7BQs2CbG8wg3ANh/U+fTFRLPqr7Ob9dbNDhB1Pmmdpt/GVfznLA== lib/eos-api.min.js.map
+  -->
+  <script src="https://cdn.jsdelivr.net/npm/eosjs-api@4.0.2/lib/eos-api.min.js"
+        integrity="sha512-mYMfavKfWmCmwoAl3bZPTuzI8zVaGT+mkS/JfKNj4JViRtNKdzpMDmV+/A4dQKWvZG0wiADIHa+eQ2MgX6LsJg=="
+        crossorigin="anonymous"></script>
+
+</head>
+<body>
+  See console object: EosApi
+</body>
+</html>
+```
+
 
 ## EosApi
 

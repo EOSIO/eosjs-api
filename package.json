@@ -3,16 +3,23 @@
   "version": "6.3.1",
   "description": "Application programming interface to EOS blockchain nodes.",
   "main": "lib/index.js",
+  "files": [
+    "README.md",
+    "docs",
+    "lib"
+  ],
   "scripts": {
     "test": "mocha --use_strict src/**/*.test.js",
     "test_lib": "mocha --use_strict lib/*.test.js",
     "coverage": "istanbul cover _mocha -- -R spec src/**/*.test.js",
     "coveralls": "npm run coverage && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
-    "build": "babel --copy-files src --out-dir lib",
-    "build_browser": "npm run build && mkdir -p dist && browserify -o dist/eos-api.js -s EosApi lib/index.js",
-    "build_browser_test": "npm run build && mkdir -p dist && browserify -o dist/test.js lib/*.test.js",
+    "build": "rm -fr lib/* && babel --copy-files src --out-dir lib",
+    "build_browser": "npm run build && mkdir -p lib && browserify -o lib/eos-api.js -s EosApi lib/index.js",
+    "build_browser_test": "npm run build && browserify -o dist/test.js lib/*.test.js",
+    "minimize": "uglifyjs lib/eos-api.js -o lib/eos-api.min.js --source-map --compress --mangle",
     "docs": "jsdoc2md src/exported-helpers.js src/process-args.js > docs/index.md",
-    "prepublishOnly": "npm run build_browser && npm run test_lib && npm run docs"
+    "srisum": "npx srisum lib/eos-api.*",
+    "prepublishOnly": "npm run build_browser && npm run test_lib && npm run minimize && npm run docs && npm run srisum"
   },
   "repository": {
     "type": "git",
@@ -38,7 +45,8 @@
     "coveralls": "^3.0.0",
     "istanbul": "^0.4.5",
     "jsdoc-to-markdown": "^4.0.1",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "uglify-js": "^3.4.5"
   },
   "dependencies": {
     "camel-case": "^3.0.0",
