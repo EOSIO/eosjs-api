@@ -21,7 +21,7 @@ read-only API calls.  If you need to sign transactions use
   sha512-mYMfavKfWmCmwoAl3bZPTuzI8zVaGT+mkS/JfKNj4JViRtNKdzpMDmV+/A4dQKWvZG0wiADIHa+eQ2MgX6LsJg== lib/eos-api.min.js
   sha512-1qWZJLIq3SAdnPPu6daLmZfSDInpxH+GUnb7BQs2CbG8wg3ANh/U+fTFRLPqr7Ob9dbNDhB1Pmmdpt/GVfznLA== lib/eos-api.min.js.map
   -->
-  <script src="https://cdn.jsdelivr.net/npm/eosjs-api@4.0.2/lib/eos-api.min.js"
+  <script src="https://cdn.jsdelivr.net/npm/eosjs-api@6.3.2/lib/eos-api.min.js"
         integrity="sha512-mYMfavKfWmCmwoAl3bZPTuzI8zVaGT+mkS/JfKNj4JViRtNKdzpMDmV+/A4dQKWvZG0wiADIHa+eQ2MgX6LsJg=="
         crossorigin="anonymous"></script>
 
