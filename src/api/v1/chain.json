@@ -23,7 +23,7 @@
     "params": {
       "json": { "type": "bool", "default": false},
       "lower_bound": "string",
-      "limit": {"type": "uint32", "default": "10"}
+      "limit": {"type": "uint32", "default": "50"}
     },
     "results": {
       "rows": {
@@ -31,7 +31,7 @@
         "doc": "one row per item, either encoded as hex String or JSON object"
       },
       "total_producer_vote_weight": {
-        "type": "float64",
+        "type": "double",
         "doc": "total vote"
       },
       "more": {
@@ -40,22 +40,34 @@
       }
     }
   },
+  "get_producer_schedule": {
+    "brief": "",
+    "params": {},
+    "results": {
+      "vector": "active",
+      "vector": "pending",
+      "vector": "proposed"
+    }
+  },
+  "get_scheduled_transactions": {
+    "brief": "",
+    "params": {
+      "json": { "type": "bool", "default": false},
+      "lower_bound": {"type": "string", "doc": "timestamp OR transaction ID"},
+      "limit": {"type": "uint32", "default": "50"}
+    },
+    "results": {
+      "vector": "transactions",
+      "more": {
+        "type": "string",
+        "doc": "fill lower_bound with this to fetch next set of transactions"
+      }
+    }
+  },
   "get_info": {
     "brief": "Return general network information.",
     "params": null,
-    "results": {
-      "server_version" : "string",
-      "head_block_num" : "uint32",
-      "last_irreversible_block_num" : "uint32",
-      "last_irreversible_block_id" : "block_id",
-      "head_block_id" : "block_id",
-      "head_block_time" : "time_point_sec",
-      "head_block_producer" : "account_name",
-      "virtual_block_cpu_limit" : "uint64",
-      "virtual_block_net_limit" : "uint64",
-      "block_cpu_limit" : "uint64",
-      "block_net_limit" : "uint64"
-    }
+    "results": "string"
   },
 
   "get_block": {
@@ -74,7 +86,7 @@
     "params": {
       "block_num_or_id": "string"
     },
-    "results": "variant",
+    "results": "string",
     "errors": {
       "block_id_type_exception": "Invalid block ID",
       "unknown_block_exception": "Could not find reversible block"
@@ -86,32 +98,19 @@
     "params": {
       "account_name": "name"
     },
-    "results": {
-      "account_name": "name",
-      "privileged": "bool",
-      "last_code_update": "time_point",
-      "created": "time_point",
-      "ram_quota": "int64",
-      "net_weight": "int64",
-      "cpu_weight": "int64",
-      "net_limit": "int64",
-      "cpu_limit": "int64",
-      "ram_usage": "int64",
-      "permissions": "vector<permission>",
-      "total_resources": "variant",
-      "self_delegated_bandwidth": "variant",
-      "voter_info": "variant"
-    }
+    "results": "string"
   },
 
   "get_code": {
     "brief": "Fetch smart contract code",
     "params": {
-      "account_name": "name"
+      "account_name": "name",
+      "code_as_wasm": {"type": "bool", "default": false}
     },
     "results": {
       "account_name": "name",
       "wast": "string",
+      "wasm": "string",
       "code_hash": "sha256",
       "abi": "optional<abi_def>"
     }
@@ -122,21 +121,29 @@
     "params": {
       "json": { "type": "bool", "default": false},
       "code": "name",
-      "scope": "name",
+      "scope": "string",
       "table": "name",
       "table_key": "string",
       "lower_bound": {"type": "string", "default": "0"},
       "upper_bound": {"type": "string", "default": "-1"},
-      "limit": {"type": "uint32", "default": "10"}
+      "limit": {"type": "uint32", "default": "10"},
+      "key_type": {
+        "type": "string",
+        "doc": "The key type of --index, primary only supports (i64), all others support (i64, i128, i256, float64, float128). Special type 'name' indicates an account name."
+      },
+      "index_position": {
+        "type": "string",
+        "doc": "1 - primary (first), 2 - secondary index (in order defined by multi_index), 3 - third index, etc"
+      }
     },
     "results": {
       "rows": {
         "type": "vector",
-        "doc": "one row per item, either encoded as hex String or JSON object"
+        "doc": "One row per item, either encoded as hex String or JSON object"
       },
       "more": {
         "type": "bool",
-        "doc": "true if last element"
+        "doc": "True if last element in data is not the end and sizeof data() < limit"
       }
     }
   },
@@ -150,7 +157,16 @@
       "abi": "abi_def?"
     }
   },
-
+  "get_raw_code_and_abi": {
+    "params": {
+      "account_name": "name"
+    },
+    "results": {
+      "account_name": "name",
+      "wasm": "bytes",
+      "abi": "abi_def?"
+    }
+  },
   "abi_json_to_bin": {
     "brief": "Manually serialize json into binary hex.  The binayargs is usually stored in Action.data.",
     "params": {
@@ -171,9 +187,7 @@
       "binargs": "bytes"
     },
     "results": {
-      "args": "bytes",
-      "required_scope": "name[]",
-      "required_auth": "name[]"
+      "args": "bytes"
     }
   },
 
