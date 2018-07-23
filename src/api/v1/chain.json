@@ -1,4 +1,130 @@
 {
+  "get_info": {
+    "brief": "Return general network information.",
+    "params": null,
+    "results": "string"
+  },
+  "get_account": {
+    "brief": "Fetch a blockchain account",
+    "params": {
+      "account_name": "name"
+    },
+    "results": "string"
+  },
+  "get_code": {
+    "brief": "Fetch smart contract code",
+    "params": {
+      "account_name": "name",
+      "code_as_wasm": {"type": "bool", "default": false}
+    },
+    "results": {
+      "account_name": "name",
+      "wast": "string",
+      "wasm": "string",
+      "code_hash": "sha256",
+      "abi": "optional<abi_def>"
+    }
+  },
+  "get_abi": {
+    "params": {
+      "account_name": "name"
+    },
+    "results": {
+      "account_name": "name",
+      "abi": "abi_def?"
+    }
+  },
+  "get_raw_code_and_abi": {
+    "params": {
+      "account_name": "name"
+    },
+    "results": {
+      "account_name": "name",
+      "wasm": "bytes",
+      "abi": "abi_def?"
+    }
+  },
+  "abi_json_to_bin": {
+    "brief": "Manually serialize json into binary hex.  The binayargs is usually stored in Action.data.",
+    "params": {
+      "code": "name",
+      "action": "name",
+      "args": "bytes"
+    },
+    "results": {
+      "binargs": "bytes"
+    }
+  },
+  "abi_bin_to_json": {
+    "brief": "Convert bin hex back into Abi json definition.",
+    "params": {
+      "code": "name",
+      "action": "name",
+      "binargs": "bytes"
+    },
+    "results": {
+      "args": "bytes"
+    }
+  },
+  "get_required_keys": {
+    "params": {
+      "transaction": "transaction",
+      "available_keys": "set[public_key]"
+    },
+    "results": "Set[public_key]"
+  },
+  "get_block": {
+    "brief": "Fetch a block from the blockchain.",
+    "params": {
+      "block_num_or_id": "string"
+    },
+    "results": "variant",
+    "errors": {
+      "unknown block": null
+    }
+  },
+  "get_block_header_state": {
+    "brief": "Fetch the minimum state necessary to validate transaction headers.",
+    "params": {
+      "block_num_or_id": "string"
+    },
+    "results": "string",
+    "errors": {
+      "block_id_type_exception": "Invalid block ID",
+      "unknown_block_exception": "Could not find reversible block"
+    }
+  },
+  "get_table_rows": {
+    "brief": "Fetch smart contract data from an account.",
+    "params": {
+      "json": { "type": "bool", "default": false},
+      "code": "name",
+      "scope": "string",
+      "table": "name",
+      "table_key": "string",
+      "lower_bound": {"type": "string", "default": "0"},
+      "upper_bound": {"type": "string", "default": "-1"},
+      "limit": {"type": "uint32", "default": "10"},
+      "key_type": {
+        "type": "string",
+        "doc": "The key type of --index, primary only supports (i64), all others support (i64, i128, i256, float64, float128). Special type 'name' indicates an account name."
+      },
+      "index_position": {
+        "type": "string",
+        "doc": "1 - primary (first), 2 - secondary index (in order defined by multi_index), 3 - third index, etc"
+      }
+    },
+    "results": {
+      "rows": {
+        "type": "vector",
+        "doc": "One row per item, either encoded as hex String or JSON object"
+      },
+      "more": {
+        "type": "bool",
+        "doc": "True if last element in data is not the end and sizeof data() < limit"
+      }
+    }
+  },
   "get_currency_balance": {
     "params": {
       "code": "name",
@@ -64,141 +190,6 @@
       }
     }
   },
-  "get_info": {
-    "brief": "Return general network information.",
-    "params": null,
-    "results": "string"
-  },
-
-  "get_block": {
-    "brief": "Fetch a block from the blockchain.",
-    "params": {
-      "block_num_or_id": "string"
-    },
-    "results": "variant",
-    "errors": {
-      "unknown block": null
-    }
-  },
-
-  "get_block_header_state": {
-    "brief": "Fetch the minimum state necessary to validate transaction headers.",
-    "params": {
-      "block_num_or_id": "string"
-    },
-    "results": "string",
-    "errors": {
-      "block_id_type_exception": "Invalid block ID",
-      "unknown_block_exception": "Could not find reversible block"
-    }
-  },
-
-  "get_account": {
-    "brief": "Fetch a blockchain account",
-    "params": {
-      "account_name": "name"
-    },
-    "results": "string"
-  },
-
-  "get_code": {
-    "brief": "Fetch smart contract code",
-    "params": {
-      "account_name": "name",
-      "code_as_wasm": {"type": "bool", "default": false}
-    },
-    "results": {
-      "account_name": "name",
-      "wast": "string",
-      "wasm": "string",
-      "code_hash": "sha256",
-      "abi": "optional<abi_def>"
-    }
-  },
-
-  "get_table_rows": {
-    "brief": "Fetch smart contract data from an account.",
-    "params": {
-      "json": { "type": "bool", "default": false},
-      "code": "name",
-      "scope": "string",
-      "table": "name",
-      "table_key": "string",
-      "lower_bound": {"type": "string", "default": "0"},
-      "upper_bound": {"type": "string", "default": "-1"},
-      "limit": {"type": "uint32", "default": "10"},
-      "key_type": {
-        "type": "string",
-        "doc": "The key type of --index, primary only supports (i64), all others support (i64, i128, i256, float64, float128). Special type 'name' indicates an account name."
-      },
-      "index_position": {
-        "type": "string",
-        "doc": "1 - primary (first), 2 - secondary index (in order defined by multi_index), 3 - third index, etc"
-      }
-    },
-    "results": {
-      "rows": {
-        "type": "vector",
-        "doc": "One row per item, either encoded as hex String or JSON object"
-      },
-      "more": {
-        "type": "bool",
-        "doc": "True if last element in data is not the end and sizeof data() < limit"
-      }
-    }
-  },
-
-  "get_abi": {
-    "params": {
-      "account_name": "name"
-    },
-    "results": {
-      "account_name": "name",
-      "abi": "abi_def?"
-    }
-  },
-  "get_raw_code_and_abi": {
-    "params": {
-      "account_name": "name"
-    },
-    "results": {
-      "account_name": "name",
-      "wasm": "bytes",
-      "abi": "abi_def?"
-    }
-  },
-  "abi_json_to_bin": {
-    "brief": "Manually serialize json into binary hex.  The binayargs is usually stored in Action.data.",
-    "params": {
-      "code": "name",
-      "action": "name",
-      "args": "bytes"
-    },
-    "results": {
-      "binargs": "bytes"
-    }
-  },
-
-  "abi_bin_to_json": {
-    "brief": "Convert bin hex back into Abi json definition.",
-    "params": {
-      "code": "name",
-      "action": "name",
-      "binargs": "bytes"
-    },
-    "results": {
-      "args": "bytes"
-    }
-  },
-
-  "get_required_keys": {
-    "params": {
-      "transaction": "transaction",
-      "available_keys": "set[public_key]"
-    },
-    "results": "Set[public_key]"
-  },
-
   "push_block": {
     "brief": "Append a block to the chain database.",
     "params": {
@@ -206,7 +197,6 @@
     },
     "results": null
   },
-
   "push_transaction": {
     "brief": "Attempts to push the transaction into the pending queue.",
     "params": {
@@ -217,7 +207,6 @@
       "processed": "bytes"
     }
   },
-
   "push_transactions": {
     "brief": "Attempts to push transactions into the pending queue.",
     "params": {
@@ -225,5 +214,4 @@
     },
     "results": "vector[push_transaction.results]"
   }
-
 }
