@@ -17,7 +17,9 @@
     "build_browser": "npm run build && mkdir -p lib && browserify -o lib/eos-api.js -s EosApi lib/index.js",
     "build_browser_test": "npm run build && browserify -o dist/test.js lib/*.test.js",
     "minimize": "uglifyjs lib/eos-api.js -o lib/eos-api.min.js --source-map --compress --mangle",
-    "docs": "jsdoc2md src/exported-helpers.js src/process-args.js > docs/index.md",
+    "helperDocs": "jsdoc2md src/exported-helpers.js src/process-args.js > docs/index.md",
+    "apiDocs": "./bin/api-docs.js > dist/api.js && jsdoc2md dist/api.js > docs/api.md",
+    "docs": "npm run apiDocs && npm run helperDocs",
     "srisum": "npx srisum lib/eos-api.*",
     "prepublishOnly": "npm run build_browser && npm run test_lib && npm run minimize && npm run docs && npm run srisum"
   },

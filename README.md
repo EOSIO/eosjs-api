@@ -112,12 +112,8 @@ fetch('https://example.com', {
 
 ## API Documentation
 
-API methods and documentation are generated from:
-* [chain.json](https://github.com/EOSIO/eosjs-api/blob/master/src/api/v1/chain.json)
-* [history.json](https://github.com/EOSIO/eosjs-api/blob/master/src/api/v1/history.json)
-
-Helper functions:
-* [./docs/index.md](./docs/index.md)
+* [API](./docs/api.md)
+* [Helper Functions](./docs/index.md)
 
 ## Environment
 
