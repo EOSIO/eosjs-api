@@ -31,10 +31,12 @@ read-only API calls.  If you need to sign transactions use
 </html>
 ```
 
-
 ## EosApi
 
 Run [nodeos](https://github.com/eosio/eos)
+
+* [API](./docs/api.md)
+* [Helper Functions](./docs/index.md)
 
 ## Usage
 
@@ -109,11 +111,6 @@ fetch('https://example.com', {
   credentials: 'same-origin'
 })
 ```
-
-## API Documentation
-
-* [API](./docs/api.md)
-* [Helper Functions](./docs/index.md)
 
 ## Environment
 
