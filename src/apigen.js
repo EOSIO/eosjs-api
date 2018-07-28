@@ -10,8 +10,8 @@ function apiGen (version, definitions, config = {}) {
     httpEndpoint: 'http://127.0.0.1:8888',
     verbose: false,
     logger: {
-      log: (...args) => config.verbose ? console.log(...args) : '',
-      error: console.error
+      log: (...args) => config.verbose ? console.log(...args) : null,
+      error: (...args) => config.verbose ? console.error(...args) : null
     }
   }
 

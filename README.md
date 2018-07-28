@@ -78,8 +78,8 @@ options = {
   httpEndpoint: 'http://127.0.0.1:8888', // default, null for cold-storage
   verbose: false, // API logging
   logger: { // Default logging functions
-    log: config.verbose ? console.log : '',
-    error: console.error
+    log: config.verbose ? console.log : null,
+    error: config.verbose ? console.error : null
   },
   fetchConfiguration: {}
 }
@@ -94,6 +94,7 @@ During testing, an error may be expected and checked as follows:
 options.logger = {
   error: err => {
     assert.equal(err, 'expected error')
+    done()
   }
 }
 ```
