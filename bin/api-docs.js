@@ -42,7 +42,7 @@ function outJsDoc(tag, params, paramNames) {
   for(const name in params) {
     const typedef = normalize(params[name])
 
-    const paramName = camelCase(name)
+    const paramName = name
     const paramNameDefault = typedef.default == null ?
       paramName : `${paramName} = ${typedef.default}`
 
