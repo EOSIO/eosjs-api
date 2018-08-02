@@ -34,6 +34,7 @@ function normalize(obj) {
 function out(str = '') {
   console.log(str.trim())
 }
+
 function outln(str = '') {
   console.log(str.trim() + '\n')
 }
@@ -42,7 +43,9 @@ function outJsDoc(tag, params, paramNames) {
   for(const name in params) {
     const typedef = normalize(params[name])
 
-    const paramName = camelCase(name)
+    // console.error('outJsDoc', tag, typedef, paramNames);
+
+    const paramName = name.replace(/\[\]$/, '')
     const paramNameDefault = typedef.default == null ?
       paramName : `${paramName} = ${typedef.default}`
 
