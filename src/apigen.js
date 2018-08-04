@@ -40,7 +40,7 @@ function apiGen (version, definitions, config = {}) {
     // Insert `api` as the first parameter to all API helpers
     api[helper] = (...args) => helpers.api[helper](api, ...args)
   }
-  return Object.assign(api, helpers)
+  return api
 }
 
 function fetchMethod (methodName, url, definition, config) {
