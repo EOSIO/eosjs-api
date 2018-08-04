@@ -29,7 +29,7 @@ module.exports = {
   Because all transactions use TaPOS, this solves the nothing at stake attack.
 
   This is usually called for every transaction or maybe cached per block.  Although
-  longer caching may be possible, a longer cache time increases the risk of a
+  longer caching is possible, a longer cache time increases the risk of a
   transaction replay attack.
 
   @arg {number} expireInSeconds - How many seconds until expiration

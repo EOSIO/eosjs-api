@@ -6,7 +6,7 @@
   For Transaction as Proof of Stake (TaPOS), 32 bits of a recent block Id is included.
   Because all transactions use TaPOS, this solves the nothing at stake attack.</p>
 <p>  This is usually called for every transaction or maybe cached per block.  Although
-  longer caching may be possible, a longer cache time increases the risk of a
+  longer caching is possible, a longer cache time increases the risk of a
   transaction replay attack.</p>
 </dd>
 <dt><a href="#processArgs">processArgs(args, defParams, methodName, [optionsFormatter(extraParam)])</a> ⇒ <code><a href="#processedArgs">processedArgs</a></code></dt>
@@ -36,7 +36,7 @@ Consult the blockchain and gather information for use in a new signed transactio
   Because all transactions use TaPOS, this solves the nothing at stake attack.
 
   This is usually called for every transaction or maybe cached per block.  Although
-  longer caching may be possible, a longer cache time increases the risk of a
+  longer caching is possible, a longer cache time increases the risk of a
   transaction replay attack.
 
 **Kind**: global function  
