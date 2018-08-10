@@ -53,7 +53,7 @@ function createTransaction(api, expireInSeconds = 60, callback) {
         expiration: expiration.toISOString().split('.')[0],
         ref_block_num,
         ref_block_prefix: block.ref_block_prefix,
-        net_usage_words: 0,
+        max_net_usage_words: 0,
         max_cpu_usage_ms: 0,
         delay_sec: 0,
         context_free_actions: [],
