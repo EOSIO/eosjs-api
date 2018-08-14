@@ -13,15 +13,16 @@
     "test_lib": "mocha --use_strict lib/*.test.js",
     "coverage": "istanbul cover _mocha -- -R spec src/**/*.test.js",
     "coveralls": "npm run coverage && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
-    "build": "rm -fr lib/* && babel --copy-files src --out-dir lib",
-    "build_browser": "npm run build && mkdir -p lib && browserify -o lib/eos-api.js -s EosApi lib/index.js",
+    "build": "npm run build_lib && npm run build_browser",
+    "build_lib": "rm -fr lib/* && babel --copy-files src --out-dir lib",
+    "build_browser": "mkdir -p lib && browserify -o lib/eos-api.js -s EosApi lib/index.js",
     "build_browser_test": "npm run build && browserify -o dist/test.js lib/*.test.js",
     "minimize": "uglifyjs lib/eos-api.js -o lib/eos-api.min.js --source-map --compress --mangle",
     "helperDocs": "jsdoc2md src/exported-helpers.js src/process-args.js > docs/index.md",
     "apiDocs": "./bin/api-docs.js > lib/api-jsdocs.js && jsdoc2md lib/api-jsdocs.js > docs/api.md",
     "docs": "npm run apiDocs && npm run helperDocs",
     "srisum": "npx srisum lib/eos-api.*",
-    "prepublishOnly": "npm run build_browser && npm run test_lib && npm run minimize && npm run docs && npm run srisum"
+    "prepublishOnly": "npm run build && npm run test_lib && npm run minimize && npm run docs && npm run srisum"
   },
   "repository": {
     "type": "git",
