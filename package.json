@@ -40,16 +40,16 @@
   },
   "homepage": "https://github.com/EOSIO/eosjs-api#readme",
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-preset-es2015": "^6.24.1",
-    "bluebird": "^3.5.0",
-    "browserify": "^16.2.2",
+    "babel-cli": "6.26.0",
+    "babel-core": "6.26.3",
+    "babel-preset-es2015": "6.24.1",
+    "bluebird": "3.5.0",
+    "browserify": "16.2.2",
+    "uglify-js": "3.4.5",
     "coveralls": "^3.0.0",
     "istanbul": "^0.4.5",
     "jsdoc-to-markdown": "^4.0.1",
-    "mocha": "^5.2.0",
-    "uglify-js": "^3.4.5"
+    "mocha": "^5.2.0"
   },
   "dependencies": {
     "camel-case": "^3.0.0",
