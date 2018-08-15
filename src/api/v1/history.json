@@ -31,7 +31,11 @@
     "brief": "Retrieve a transaction from the blockchain.",
     "params": {
       "id": "transaction_id_type",
-      "block_num_hint": "uint32?"
+      "block_num_hint": {
+        "type": "uint32?",
+        "default": 0,
+        "doc": "A non-zero block number allows shorter transaction IDs (8 hex, 4 bytes)"
+      }
     },
     "results": {
       "id": "transaction_id_type",

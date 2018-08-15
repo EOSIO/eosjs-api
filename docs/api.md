@@ -459,10 +459,10 @@ Retrieve a transaction from the blockchain.
 
 **Kind**: static method of [<code>eos</code>](#eos)  
 
-| Param | Type |
-| --- | --- |
-| id | <code>transaction_id_type</code> | 
-| [block_num_hint] | <code>uint32</code> | 
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| id | <code>transaction_id_type</code> |  |  |
+| [block_num_hint] | <code>uint32</code> | <code>0</code> | A non-zero block number allows shorter transaction IDs (8 hex, 4 bytes) |
 
 **Example**  
 ```js
