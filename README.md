@@ -16,11 +16,11 @@ read-only API calls.  If you need to sign transactions use
 <head>
   <meta charset="utf-8">
   <!--
-  sha512-oiuFmDyPAiD3PIiAYLyie70WmRWBy+Eq1Xar8Siz2HDGAv8B6O9tcjW9lC9isYbS/TOs4OkZAsQBln206Mb9Wg== lib/eos-api.js
-  sha512-LLDsX/GdVZYA82k9TVz3zUxSjvaX8s5b1FJm64W51JGxLFKI2z+ljqYQtsUZIOxh9pSUqvLA5HCoxXqdRxusKw== lib/eos-api.min.js
-  sha512-UuHPS649Xw5vATdmB0X7z+jgbdfmxiaeraqNtvq9T6bG1k8NX9Az8YrT4GmX5gBpbIX+z3vOomFnBX1RmnDDTA== lib/eos-api.min.js.map
+  sha512-n3CgU6w9TJVf/pVIMHYhk3Gxv8lEQYjVrSSTLXvEBENLF+CQd1Kp0jxXj09yGUOkWerdv2mJlh1Mnz3aRfYqWw== lib/eos-api.js
+  sha512-Cj2FQb94MMtDPgHb1R1577pEMjYhc+P5pNgv1/QwoJD9ntuR9rnWlqJACS/xNniNK5cFS6Y6CpQlHWpzWUeEbw== lib/eos-api.min.js
+  sha512-4C6oDKarS8DaXO99o342USbeQwqW98qik+QSzVGfof939gUpIyRDCnbGIGQAIkLNpYZIV4XanmRy3wcis6UW8w== lib/eos-api.min.js.map
   -->
-  <script src="https://cdn.jsdelivr.net/npm/eosjs-api@7.0.3/lib/eos-api.min.js"
+  <script src="https://cdn.jsdelivr.net/npm/eosjs-api@7.0.4/lib/eos-api.min.js"
     integrity="sha512-LLDsX/GdVZYA82k9TVz3zUxSjvaX8s5b1FJm64W51JGxLFKI2z+ljqYQtsUZIOxh9pSUqvLA5HCoxXqdRxusKw=="
     crossorigin="anonymous"></script>
 

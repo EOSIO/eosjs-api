@@ -12,6 +12,8 @@
 <dd></dd>
 <dt><a href="#getCodeResult">getCodeResult</a> : <code>object</code></dt>
 <dd></dd>
+<dt><a href="#getCodeHashResult">getCodeHashResult</a> : <code>object</code></dt>
+<dd></dd>
 <dt><a href="#getAbiResult">getAbiResult</a> : <code>object</code></dt>
 <dd></dd>
 <dt><a href="#getRawCodeAndAbiResult">getRawCodeAndAbiResult</a> : <code>object</code></dt>
@@ -53,6 +55,7 @@
     * [.getInfo()](#eos.getInfo) ⇒ <code>string</code>
     * [.getAccount(account_name)](#eos.getAccount) ⇒ <code>string</code>
     * [.getCode(account_name, [code_as_wasm])](#eos.getCode) ⇒ [<code>getCodeResult</code>](#getCodeResult)
+    * [.getCodeHash(account_name)](#eos.getCodeHash) ⇒ [<code>getCodeHashResult</code>](#getCodeHashResult)
     * [.getAbi(account_name)](#eos.getAbi) ⇒ [<code>getAbiResult</code>](#getAbiResult)
     * [.getRawCodeAndAbi(account_name)](#eos.getRawCodeAndAbi) ⇒ [<code>getRawCodeAndAbiResult</code>](#getRawCodeAndAbiResult)
     * [.abiJsonToBin(code, action, args)](#eos.abiJsonToBin) ⇒ [<code>abiJsonToBinResult</code>](#abiJsonToBinResult)
@@ -126,6 +129,23 @@ url_path: `/v1/chain/get_code`
 **Example**  
 ```js
 eos.getCode(account_name, code_as_wasm)
+```
+<a name="eos.getCodeHash"></a>
+
+### eos.getCodeHash(account_name) ⇒ [<code>getCodeHashResult</code>](#getCodeHashResult)
+**Kind**: static method of [<code>eos</code>](#eos)  
+
+| Param | Type |
+| --- | --- |
+| account_name | <code>name</code> | 
+
+**Example**  
+```js
+url_path: `/v1/chain/get_code_hash`
+```
+**Example**  
+```js
+eos.getCodeHash(account_name)
 ```
 <a name="eos.getAbi"></a>
 
@@ -523,6 +543,17 @@ eos.getControlledAccounts(controlling_account)
 | wasm | <code>string</code> | 
 | code_hash | <code>sha256</code> | 
 | abi | <code>optional.&lt;abi_def&gt;</code> | 
+
+<a name="getCodeHashResult"></a>
+
+## getCodeHashResult : <code>object</code>
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| account_name | <code>name</code> | 
+| code_hash | <code>sha256</code> | 
 
 <a name="getAbiResult"></a>
 
