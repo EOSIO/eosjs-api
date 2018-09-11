@@ -25,6 +25,16 @@
       "abi": "optional<abi_def>"
     }
   },
+  "get_code_hash": {
+    "brief": "",
+    "params": {
+      "account_name": "name"
+    },
+    "results": {
+      "account_name": "name",
+      "code_hash": "sha256"
+    }
+  },
   "get_abi": {
     "params": {
       "account_name": "name"
