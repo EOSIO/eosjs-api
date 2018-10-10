@@ -223,5 +223,25 @@
       "signed_transaction[]": "signed_transaction"
     },
     "results": "vector[push_transaction.results]"
+  },
+  "get_table_by_scope": {
+    "brief": "Fetch smart contract data by scope.",
+    "params": {
+      "code": "name",
+      "table": "name",
+      "lower_bound": {"type": "string", "default": "0"},
+      "upper_bound": {"type": "string", "default": "-1"},
+      "limit": {"type": "uint32", "default": "10"}
+    },
+    "results": {
+      "rows": {
+        "type": "vector",
+        "doc": "One row per item, either encoded as hex String or JSON object"
+      },
+      "more": {
+        "type": "bool",
+        "doc": "True if last element in data is not the end and sizeof data() < limit"
+      }
+    }
   }
 }
