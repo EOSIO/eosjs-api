@@ -70,7 +70,12 @@ function fetchMethod (methodName, url, definition, config) {
     const fetchConfiguration = {body, method: 'POST'}
     Object.assign(fetchConfiguration, config.fetchConfiguration)
 
-    fetch(url, fetchConfiguration).then(response => {
+    // We have to use the naked `fetch` on Safari (or `this` will be wrong),
+    // unless the config has provided one to use instead:
+    const promise = config.fetch != null
+      ? config.fetch(url, fetchConfiguration)
+      : fetch(url, fetchConfiguration)
+    promise.then(response => {
       if (response.status >= 200 && response.status < 300) {
         return response.json()
       } else {
