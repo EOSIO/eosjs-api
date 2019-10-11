@@ -113,6 +113,14 @@ fetch('https://example.com', {
 })
 ```
 
+### options.fetch
+
+```js
+options.fetch = window.fetch
+```
+
+It is possible to pass an `options.fetch` function, which this library will use in place of the browser's `fetch` method. This may be useful for unit-testing.
+
 ## Environment
 
 Node and browser (es2015)
