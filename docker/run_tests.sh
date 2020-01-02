@@ -15,10 +15,10 @@ trap finish ERR
 
 cd ..
 npm install
-npm run test
+yarn test
 
-npm run build
-npm run minimize
+yarn build
+yarn minimize
 
 echo "Subresource Integrity"
-npm run srisum
+yarn srisum
