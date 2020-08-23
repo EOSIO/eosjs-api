@@ -122,7 +122,9 @@
       "index_position": {
         "type": "string",
         "doc": "1 - primary (first), 2 - secondary index (in order defined by multi_index), 3 - third index, etc"
-      }
+      },
+      "reverse": { "type": "bool", "default": false},
+      "show_payer": { "type": "bool", "default": false}
     },
     "results": {
       "rows": {
