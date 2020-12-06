@@ -2,7 +2,7 @@
   "name": "eosjs-api",
   "version": "7.0.4",
   "description": "Application programming interface to EOS blockchain nodes.",
-  "main": "lib/index.js",
+  "main": "src/index.js",
   "files": [
     "README.md",
     "docs",
